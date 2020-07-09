@@ -1,4 +1,4 @@
-import java.net.InetAddress;
+import java.net.*;
 
 public class Device {
     private InetAddress address;

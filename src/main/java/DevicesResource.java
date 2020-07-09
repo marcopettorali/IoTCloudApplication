@@ -28,7 +28,7 @@ public class DevicesResource extends CoapResource {
             List<Device> devices = RegisteredDevices.query(room, type, metric);
             JSONObject jsonObject = new JSONObject();
             JSONArray jsonArray = new JSONArray();
-            if (devices != null) {
+            if (!devices.isEmpty()) {
                 for (Device d : devices) {
                     JSONObject jsonDevice = new JSONObject();
                     jsonDevice.put("r", d.getRoom());
@@ -58,8 +58,8 @@ public class DevicesResource extends CoapResource {
             RegisteredDevices.print();
             exchange.respond(CoAP.ResponseCode.CREATED);
         } catch (ParseException e) {
+            exchange.respond(CoAP.ResponseCode.BAD_REQUEST);
             e.printStackTrace();
         }
-        exchange.respond(CoAP.ResponseCode.BAD_REQUEST);
     }
 }

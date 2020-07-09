@@ -10,8 +10,9 @@ public class ObservableResource extends CoapResource {
     public ObservableResource(String name) {
         super(name);
         setObservable(true);
+
         Timer timer = new Timer();
-        timer.schedule(new UpdateTask(), 0, 3 * 1000);
+        timer.schedule(new UpdateTask(), 0, 500);
     }
 
     private class UpdateTask extends TimerTask {

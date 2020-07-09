@@ -29,13 +29,28 @@ public class RegisteredDevices {
     public static List<Device> query(Integer room, String type, String metric) {
         List<Device> ret = new ArrayList<>();
         for (Device d : registeredDevices) {
-            if (((room == null) || (room != null && d.getRoom() == room)) &&
-                    ((type == null) || (type != null && d.getType().equals(type))) &&
-                    ((metric == null) || (metric != null && d.getMetric().equals(metric)))) {
+            if (((room == null) || d.getRoom() == room) && ((type == null) || d.getType().equals(type)) && ((metric == null) || d.getMetric().equals(metric))) {
                 ret.add(d);
             }
         }
         return ret;
+    }
+
+    public static int countRooms(){
+        List<Integer> rooms = new ArrayList<>();
+        for (Device d : registeredDevices) {
+            boolean found = false;
+            for(Integer r : rooms){
+                if(r == d.getRoom()){
+                    found = true;
+                    break;
+                }
+            }
+            if(!found){
+                rooms.add(d.getRoom());
+            }
+        }
+        return rooms.size();
     }
 
     public static void print() {
