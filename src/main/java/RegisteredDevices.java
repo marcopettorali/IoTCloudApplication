@@ -26,27 +26,27 @@ public class RegisteredDevices {
         return null;
     }
 
-    public static List<Device> query(Integer room, String type, String metric) {
+    public static List<Device> query(Integer room, String type, String metric, Integer deviceId) {
         List<Device> ret = new ArrayList<>();
         for (Device d : registeredDevices) {
-            if (((room == null) || d.getRoom() == room) && ((type == null) || d.getType().equals(type)) && ((metric == null) || d.getMetric().equals(metric))) {
+            if (((room == null) || d.getRoom() == room) && ((type == null) || d.getType().equals(type)) && ((metric == null) || d.getMetric().equals(metric)) && ((deviceId == null) || d.getDeviceId() == deviceId)) {
                 ret.add(d);
             }
         }
         return ret;
     }
 
-    public static int countRooms(){
+    public static int countRooms() {
         List<Integer> rooms = new ArrayList<>();
         for (Device d : registeredDevices) {
             boolean found = false;
-            for(Integer r : rooms){
-                if(r == d.getRoom()){
+            for (Integer r : rooms) {
+                if (r == d.getRoom()) {
                     found = true;
                     break;
                 }
             }
-            if(!found){
+            if (!found) {
                 rooms.add(d.getRoom());
             }
         }

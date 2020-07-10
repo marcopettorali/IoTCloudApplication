@@ -5,28 +5,14 @@ public class Device {
     private int room;
     private String type;
     private String metric;
+    private int deviceId;
 
-    public Device(InetAddress address, int room, String type, String metric) {
+    public Device(InetAddress address, int room, String type, String metric, Integer deviceId) {
         this.address = address;
         this.room = room;
         this.type = type;
         this.metric = metric;
-    }
-
-    public void setAddress(InetAddress address) {
-        this.address = address;
-    }
-
-    public void setRoom(int room) {
-        this.room = room;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public void setMetric(String metric) {
-        this.metric = metric;
+        this.deviceId = deviceId;
     }
 
     public InetAddress getAddress() {
@@ -45,8 +31,16 @@ public class Device {
         return metric;
     }
 
+    public int getDeviceId() {
+        return deviceId;
+    }
+
     @Override
     public String toString() {
-        return metric + " " + type + " in room " + room + "@" + address.getHostAddress();
+        String ret = metric + " " + type + " in room " + room + "@" + address.getHostAddress();
+        if(deviceId!=-1){
+            ret += " (id = " + deviceId + ")";
+        }
+        return ret;
     }
 }

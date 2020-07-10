@@ -21,11 +21,16 @@ public class DevicesResource extends CoapResource {
             String roomStr = exchange.getQueryParameter("r");
             String type = exchange.getQueryParameter("t");
             String metric = exchange.getQueryParameter("m");
+            String deviceIdStr = exchange.getQueryParameter("n");
             Integer room = null;
+            Integer deviceId = null;
             if (roomStr != null) {
                 room = Integer.parseInt(roomStr);
             }
-            List<Device> devices = RegisteredDevices.query(room, type, metric);
+            if (deviceId != null) {
+                deviceId = Integer.parseInt(deviceIdStr);
+            }
+            List<Device> devices = RegisteredDevices.query(room, type, metric, deviceId);
             JSONObject jsonObject = new JSONObject();
             JSONArray jsonArray = new JSONArray();
             if (!devices.isEmpty()) {
@@ -35,6 +40,7 @@ public class DevicesResource extends CoapResource {
                     jsonDevice.put("t", d.getType());
                     jsonDevice.put("m", d.getMetric());
                     jsonDevice.put("a", d.getAddress().getHostAddress());
+                    jsonDevice.put("n", d.getDeviceId());
                     jsonArray.add(jsonDevice);
                 }
             }
@@ -54,7 +60,14 @@ public class DevicesResource extends CoapResource {
             int room = new Long((long) jsonObject.get("r")).intValue();
             String type = (String) jsonObject.get("t");
             String metric = (String) jsonObject.get("m");
-            Device device = new Device(deviceAddress, room, type, metric);
+            int deviceId;
+            Object deviceIdStr = (Object) jsonObject.get("n");
+            if (deviceIdStr == null) {
+                deviceId = -1;
+            } else {
+                deviceId = new Long((long) jsonObject.get("n")).intValue();
+            }
+            Device device = new Device(deviceAddress, room, type, metric, deviceId);
             RegisteredDevices.insert(device);
             System.out.println("A new " + device + " has just been inserted!");
             RegisteredDevices.print();

@@ -25,7 +25,7 @@ public class ClientSample {
             JSONArray jsonArray = (JSONArray) json.get("devices");
             for (Object o : jsonArray) {
                 JSONObject elem = (JSONObject) o;
-                Device d = new Device(InetAddress.getByName((String) elem.get("a")), new Long((long) elem.get("r")).intValue(), (String) elem.get("t"), (String) elem.get("m"));
+                Device d = new Device(InetAddress.getByName((String) elem.get("a")), new Long((long) elem.get("r")).intValue(), (String) elem.get("t"), (String) elem.get("m"), new Long((long) elem.get("n")).intValue());
                 System.out.println(d);
             }
         } catch (ParseException | UnknownHostException e) {
