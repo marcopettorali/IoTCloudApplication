@@ -30,8 +30,8 @@ public class MainCaliforniumIoT {
         CoapServer serv = new CoapServer();
         serv.add(new DevicesResource());
         serv.add(new CoAPResourceExample("hello"));
-        serv.add(new ObservableResource("obs"));
-        populateFakeDevices();
+        //serv.add(new ObservableResource("obs"));
+        //populateFakeDevices();
         System.out.println("Rooms available: " + RegisteredDevices.countRooms());
         serv.start();
 

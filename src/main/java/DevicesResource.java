@@ -47,7 +47,9 @@ public class DevicesResource extends CoapResource {
 
     public void handlePOST(CoapExchange exchange) {
         try {
+            System.out.println("Payload = " + exchange.getRequestText() + ".");
             JSONObject jsonObject = (JSONObject) JSONValue.parseWithException(exchange.getRequestText());
+            System.out.println("Parsed json " + jsonObject.toJSONString() + ".");
             InetAddress deviceAddress = exchange.getSourceAddress();
             int room = new Long((long) jsonObject.get("r")).intValue();
             String type = (String) jsonObject.get("t");
