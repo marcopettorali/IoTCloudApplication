@@ -1,5 +1,3 @@
-import org.eclipse.californium.core.*;
-import org.eclipse.californium.core.coap.*;
 import org.json.simple.*;
 import org.json.simple.parser.*;
 
@@ -9,24 +7,19 @@ import java.util.List;
 
 public class ClientSample {
 
-    private static void registerToServer(CoapClient devicesClient) {
-        JSONObject json = new JSONObject();
-        json.put("r", 2);
-        json.put("t", "sensor");
-        json.put("m", "light");
-        devicesClient.post(json.toString(), MediaTypeRegistry.APPLICATION_JSON);
-    }
-
     public static void main(String[] args) throws InterruptedException {
-        CoapClient devicesClient = new CoapClient("coap://127.0.0.1/devices");
+
+        ResourceConnection device = new ResourceConnection("coap://127.0.0.1/devices");
 
         //register
-        registerToServer(devicesClient);
+        JSONObject deviceJson = new JSONObject();
+        deviceJson.put("r", 2);
+        deviceJson.put("t", "sensor");
+        deviceJson.put("m", "light");
+        device.sendPostRequest(deviceJson.toJSONString());
         System.out.println("Correctly registered to server");
 
         //retrieve devices
-        ResourceConnection device = new ResourceConnection("coap://127.0.0.1/devices");
-
         try {
             JSONObject json = (JSONObject) JSONValue.parseWithException(device.sendGetRequest(new String[]{"r=1", "t=sensor"}));
             JSONArray jsonArray = (JSONArray) json.get("devices");
@@ -42,7 +35,7 @@ public class ClientSample {
         SimpleIntegerObserver observer = new SimpleIntegerObserver("coap://127.0.0.1/obs", 20);
         long lastUpdate = 0;
         while (true) {
-            Thread.sleep(5000);
+            Thread.sleep(Math.round(Math.random() * 10000));
             List<Integer> list = observer.retrieveDataSince(lastUpdate);
             for (int i : list) {
                 System.out.print(i + ", ");
