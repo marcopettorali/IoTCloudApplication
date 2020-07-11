@@ -5,7 +5,7 @@ public class Actuator extends Device {
 
     public Actuator(InetAddress address, int room, String type, String metric, Integer deviceId) {
         super(address, room, type, metric, deviceId);
-        String observedResourceAddress = "coap://" + address.getHostAddress() + "/" + metric + "_actuator";
+        String observedResourceAddress = "coap://[" + address.getHostAddress() + "]/" + metric + "_actuator";
         this.resource = new ResourceConnection(observedResourceAddress);
     }
 

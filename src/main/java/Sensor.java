@@ -7,7 +7,7 @@ public class Sensor extends Device {
 
     public Sensor(InetAddress address, int room, String type, String metric, Integer deviceId) {
         super(address, room, type, metric, deviceId);
-        String observedResourceAddress = "coap://" + address.getHostAddress() + "/" + metric;
+        String observedResourceAddress = "coap://[" + address.getHostAddress() + "]/" + metric;
         this.observer = new DoubleObserver(observedResourceAddress, 256);
     }
 
