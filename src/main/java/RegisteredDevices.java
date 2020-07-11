@@ -8,7 +8,6 @@ public class RegisteredDevices {
         registeredDevices = new ArrayList<>();
     }
 
-
     public static void insert(Device d) {
         registeredDevices.add(d);
     }
@@ -17,19 +16,14 @@ public class RegisteredDevices {
         registeredDevices.remove(d);
     }
 
-    public static Device findByAddress(InetAddress addr) {
-        for (Device d : registeredDevices) {
-            if (d.getAddress().equals(addr)) {
-                return d;
-            }
-        }
-        return null;
-    }
-
-    public static List<Device> query(Integer room, String type, String metric, Integer deviceId) {
+    public static List<Device> query(String address, Integer room, String type, String metric, Integer deviceId) {
         List<Device> ret = new ArrayList<>();
         for (Device d : registeredDevices) {
-            if (((room == null) || d.getRoom() == room) && ((type == null) || d.getType().equals(type)) && ((metric == null) || d.getMetric().equals(metric)) && ((deviceId == null) || d.getDeviceId() == deviceId)) {
+            if (((address == null) || d.getAddress().getHostAddress().equals(address)) &&
+                    ((room == null) || d.getRoom() == room) &&
+                    ((type == null) || d.getType().equals(type)) &&
+                    ((metric == null) || d.getMetric().equals(metric)) &&
+                    ((deviceId == null) || d.getDeviceId() == deviceId)) {
                 ret.add(d);
             }
         }

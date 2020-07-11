@@ -13,6 +13,7 @@ public class Device {
         this.type = type;
         this.metric = metric;
         this.deviceId = deviceId;
+
     }
 
     public InetAddress getAddress() {
@@ -38,7 +39,7 @@ public class Device {
     @Override
     public String toString() {
         String ret = metric + " " + type + " in room " + room + "@" + address.getHostAddress();
-        if(deviceId!=-1){
+        if (deviceId != -1) {
             ret += " (id = " + deviceId + ")";
         }
         return ret;

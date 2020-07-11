@@ -10,6 +10,10 @@ public class ResourceConnection {
         client = new CoapClient(resourceAddress);
     }
 
+    public void shutdown(){
+        client.shutdown();
+    }
+    
     public String sendGetRequest(String[] params) {
         Request req = new Request(CoAP.Code.GET);
         req.getOptions().setAccept(MediaTypeRegistry.APPLICATION_JSON);
@@ -19,6 +23,7 @@ public class ResourceConnection {
         CoapResponse resp = client.advanced(req);
         return resp.getResponseText();
     }
+
 
     public void sendPostRequest(String jsonString) {
         client.post(jsonString, MediaTypeRegistry.APPLICATION_JSON);

@@ -3,15 +3,21 @@ import util.*;
 
 import java.util.*;
 
-public class SimpleIntegerObserver {
+public class DoubleObserver {
 
-    private DataHistory<Integer> dataHistory;
+    private DataHistory<Double> dataHistory;
 
-    public SimpleIntegerObserver(String address, int historySize) {
+    public DoubleObserver(String address, int historySize) {
         dataHistory = new DataHistory(historySize);
         ObservingThread thread = new ObservingThread(address);
         thread.setDaemon(true);
         thread.start();
+    }
+
+    private void handleObservedData(String content){
+        synchronized (dataHistory) {
+            dataHistory.add(Double.parseDouble(content));
+        }
     }
 
     class ObservingThread extends Thread {
@@ -30,7 +36,7 @@ public class SimpleIntegerObserver {
                         public void onLoad(CoapResponse response) {
                             String content = response.getResponseText();
                             synchronized (dataHistory) {
-                                dataHistory.add(Integer.parseInt(content));
+                                handleObservedData(content);
                             }
                         }
 
@@ -43,10 +49,10 @@ public class SimpleIntegerObserver {
         }
     }
 
-    public List<Integer> retrieveDataSince(long date) {
-        List<Integer> ret;
+    public List<Double> getDataSince(long date) {
+        List<Double> ret;
         synchronized (dataHistory) {
-            ret = dataHistory.retrieveListSince(date);
+            ret = dataHistory.getDataSince(date);
         }
         return ret;
     }

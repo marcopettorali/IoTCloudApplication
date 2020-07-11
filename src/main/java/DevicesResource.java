@@ -18,6 +18,7 @@ public class DevicesResource extends CoapResource {
         Response response = new Response(CoAP.ResponseCode.CONTENT);
         if (exchange.getRequestOptions().getAccept() == MediaTypeRegistry.APPLICATION_JSON) {
             response.getOptions().setContentFormat(MediaTypeRegistry.APPLICATION_JSON);
+            String address = exchange.getQueryParameter("a");
             String roomStr = exchange.getQueryParameter("r");
             String type = exchange.getQueryParameter("t");
             String metric = exchange.getQueryParameter("m");
@@ -30,7 +31,7 @@ public class DevicesResource extends CoapResource {
             if (deviceId != null) {
                 deviceId = Integer.parseInt(deviceIdStr);
             }
-            List<Device> devices = RegisteredDevices.query(room, type, metric, deviceId);
+            List<Device> devices = RegisteredDevices.query(address, room, type, metric, deviceId);
             JSONObject jsonObject = new JSONObject();
             JSONArray jsonArray = new JSONArray();
             if (!devices.isEmpty()) {
@@ -67,13 +68,48 @@ public class DevicesResource extends CoapResource {
             } else {
                 deviceId = new Long((long) jsonObject.get("n")).intValue();
             }
-            Device device = new Device(deviceAddress, room, type, metric, deviceId);
+            Device device = null;
+            if (type.equals("sensor")) {
+                device = new Sensor(deviceAddress, room, type, metric, deviceId);
+            } else if (type.equals("actuator")) {
+                device = new Actuator(deviceAddress, room, type, metric, deviceId);
+            }
             RegisteredDevices.insert(device);
             System.out.println("A new " + device + " has just been inserted!");
             RegisteredDevices.print();
             exchange.respond(CoAP.ResponseCode.CREATED);
+        } catch (Exception e) {
+            exchange.respond(CoAP.ResponseCode.BAD_REQUEST);
+            e.printStackTrace();
+        }
+    }
+
+    public void handleDELETE(CoapExchange exchange) {
+        try {
+            System.out.println("Payload = " + exchange.getRequestText() + ".");
+            JSONObject jsonObject = (JSONObject) JSONValue.parseWithException(exchange.getRequestText());
+            System.out.println("Parsed json " + jsonObject.toJSONString() + ".");
+            InetAddress deviceAddress = exchange.getSourceAddress();
+            int room = new Long((long) jsonObject.get("r")).intValue();
+            String type = (String) jsonObject.get("t");
+            String metric = (String) jsonObject.get("m");
+            int deviceId;
+            Object deviceIdStr = (Object) jsonObject.get("n");
+            if (deviceIdStr == null) {
+                deviceId = -1;
+            } else {
+                deviceId = new Long((long) jsonObject.get("n")).intValue();
+            }
+            Device device = RegisteredDevices.query(deviceAddress.getHostAddress(), room, type, metric, deviceId).get(0);
+            RegisteredDevices.remove(device);
+            System.out.println("The " + device + " has disconnected.");
+            RegisteredDevices.print();
+            exchange.respond(CoAP.ResponseCode.DELETED);
         } catch (ParseException e) {
             exchange.respond(CoAP.ResponseCode.BAD_REQUEST);
+            e.printStackTrace();
+        } catch (Exception e) {
+            exchange.respond(CoAP.ResponseCode.INTERNAL_SERVER_ERROR);
             e.printStackTrace();
         }
     }

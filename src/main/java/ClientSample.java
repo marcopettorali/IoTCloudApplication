@@ -1,7 +1,9 @@
+import org.eclipse.californium.core.*;
 import org.json.simple.*;
 import org.json.simple.parser.*;
 
 import java.net.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +12,6 @@ public class ClientSample {
     public static void main(String[] args) throws InterruptedException {
 
         ResourceConnection device = new ResourceConnection("coap://127.0.0.1/devices");
-
         //register
         JSONObject deviceJson = new JSONObject();
         deviceJson.put("r", 2);
@@ -32,12 +33,12 @@ public class ClientSample {
             e.printStackTrace();
         }
 
-        SimpleIntegerObserver observer = new SimpleIntegerObserver("coap://127.0.0.1/obs", 20);
+        DoubleObserver doubleObserver = new DoubleObserver("coap://127.0.0.1/obs", 20);
         long lastUpdate = 0;
         while (true) {
             Thread.sleep(Math.round(Math.random() * 10000));
-            List<Integer> list = observer.retrieveDataSince(lastUpdate);
-            for (int i : list) {
+            List<Double> list = new ArrayList<Double>(doubleObserver.getDataSince(lastUpdate));
+            for (double i : list) {
                 System.out.print(i + ", ");
             }
             System.out.println();

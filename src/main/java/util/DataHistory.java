@@ -27,7 +27,7 @@ public class DataHistory<T> {
         }
     }
 
-    public List<T> retrieveListSince(long date) {
+    public List<T> getDataSince(long date) {
         List<T> ret = new ArrayList<>();
         if (!full) {
             for (int i = 0; i < index; i++) {

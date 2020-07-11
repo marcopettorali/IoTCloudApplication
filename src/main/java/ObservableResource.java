@@ -6,9 +6,11 @@ import java.util.*;
 
 public class ObservableResource extends CoapResource {
     private int num;
+    private String name;
 
     public ObservableResource(String name) {
         super(name);
+        this.name = name;
         setObservable(true);
 
         Timer timer = new Timer();
@@ -19,7 +21,7 @@ public class ObservableResource extends CoapResource {
         @Override
         public void run() {
             num = (int) (Math.random() * 1000);
-            System.out.println(num);
+            System.out.println(name + " " + num);
             changed();
         }
     }

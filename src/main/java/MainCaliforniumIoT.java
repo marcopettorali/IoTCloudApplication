@@ -27,13 +27,13 @@ public class MainCaliforniumIoT {
     }
 
     public static void main(String[] args) {
-        CoapServer serv = new CoapServer();
-        serv.add(new DevicesResource());
-        serv.add(new CoAPResourceExample("hello"));
+        CoapServer server = new CoapServer();
+        server.add(new DevicesResource());
+        //serv.add(new CoAPResourceExample("hello"));
         //serv.add(new ObservableResource("obs"));
         //populateFakeDevices();
         System.out.println("Rooms available: " + RegisteredDevices.countRooms());
-        serv.start();
+        server.start();
 
     }
 }
