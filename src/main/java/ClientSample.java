@@ -1,4 +1,3 @@
-import org.eclipse.californium.core.*;
 import org.json.simple.*;
 import org.json.simple.parser.*;
 
