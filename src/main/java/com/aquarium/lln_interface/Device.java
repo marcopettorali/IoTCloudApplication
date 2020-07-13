@@ -9,6 +9,8 @@ public class Device {
     private String metric;
     private int deviceId;
 
+    protected DoubleObserver observer;
+
     public Device(InetAddress address, int room, String type, String metric, Integer deviceId) {
         this.address = address;
         this.room = room;
@@ -36,6 +38,10 @@ public class Device {
 
     public int getDeviceId() {
         return deviceId;
+    }
+
+    public String getState() {
+        return observer.getState();
     }
 
     @Override

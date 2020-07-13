@@ -7,47 +7,30 @@ import java.util.ArrayList;
  */
 public class Tank {
 
-    public enum Location {
-        INSIDE, OUTSIDE
-    }
-
-    public String identifier;
+    public int identifier;
     public String name;
-    public Location location;
     public ArrayList<Sensor> sensors;
 
     //To be used when we have to represent only tank names and locations
     // (e.g. to show the list of tanks in the aquarium)
-    public Tank(String identifier, String name, boolean isInside) {
+    public Tank(int identifier, String name) {
         this.identifier = identifier;
         this.name = name;
-        if(isInside)
-            this.location = Location.INSIDE;
-        else
-            this.location = Location.OUTSIDE;
-        this.sensors = null;
+        this.sensors = new ArrayList<>();
     }
 
-    public Tank(String identifier, String name, boolean isInside, ArrayList<Sensor> sensors) {
+    public Tank(int identifier, String name, ArrayList<Sensor> sensors) {
         this.identifier = identifier;
         this.name = name;
-        if(isInside)
-            this.location = Location.INSIDE;
-        else
-            this.location = Location.OUTSIDE;
         this.sensors = sensors;
     }
 
-    public String getIdentifier() {
+    public int getIdentifier() {
         return identifier;
     }
 
     public String getName() {
         return name;
-    }
-
-    public Location getLocation() {
-        return location;
     }
 
     public ArrayList<Sensor> getSensors() {

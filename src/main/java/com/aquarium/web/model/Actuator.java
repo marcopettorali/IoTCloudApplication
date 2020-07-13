@@ -1,40 +1,68 @@
 package com.aquarium.web.model;
 
+import java.util.Date;
+import java.util.List;
+
 /**
  * Simple class modeling the descriptor of an actuator
  */
 public class Actuator {
+
+    public final long  DEFAULT_AGE = 3600000; //last 2 hour samples
 
     public enum ActuatorDescriptor {
         LIGHT, OXYGENATOR, THERMO_REGULATOR, WATER_CHANGE, NONE
     }
 
     public String identifier;
-    public int status; //Usually 1->ON, 0->OFF
-    String statusDescription;
+    String status;
     ActuatorDescriptor classDescriptor;
 
-    public Actuator(String identifier, int status, String statusDescription, ActuatorDescriptor descriptor) {
+    List<Double> lastValues;
+    long lastValuesAge;
+
+    public Actuator(String identifier, String status, ActuatorDescriptor descriptor) {
         this.identifier = identifier;
-        this.statusDescription = statusDescription;
         this.status = status;
         this.classDescriptor = descriptor;
+    }
+
+    public Actuator(com.aquarium.lln_interface.Actuator a) {
+        this.identifier = a.getRoom() + "_" + a.getMetric() + "_a_"
+                + a.getDeviceId();
+
+        long date = new Date().getTime() - DEFAULT_AGE;
+        this.lastValuesAge = date;
+        this.lastValues = a.getDataSince(date);
+        this.status= a.getState();
+        this.classDescriptor = mapType(a.getType());
     }
 
     public String getIdentifier() {
         return identifier;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
-    }
-
-    public String getStatusDescription() {
-        return statusDescription;
     }
 
     public ActuatorDescriptor getClassDescriptor() {
         return classDescriptor;
+    }
+
+    public static Actuator.ActuatorDescriptor mapType(String type) {
+        switch (type) {
+            case "luminosity":
+                return ActuatorDescriptor.LIGHT;
+            case "oxygen":
+                return ActuatorDescriptor.OXYGENATOR;
+            case "temperature":
+                return ActuatorDescriptor.THERMO_REGULATOR;
+            case "water":
+                return ActuatorDescriptor.WATER_CHANGE;
+            default:
+                return ActuatorDescriptor.NONE;
+        }
     }
 
 }

@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Actuator extends Device {
     ResourceConnection resource;
-    private DoubleObserver observer;
 
     public Actuator(InetAddress address, int room, String type, String metric, Integer deviceId) {
         super(address, room, type, metric, deviceId);
@@ -18,19 +17,15 @@ public class Actuator extends Device {
         return resource.sendGetRequest(params);
     }
 
-    public void sendPostRequest(String jsonString) {
-        resource.sendPostRequest(jsonString);
+    public String sendPostRequest(String jsonString) {
+        return resource.sendPostRequest(jsonString);
     }
 
-    public void sendPutRequest(String jsonString) {
-        resource.sendPutRequest(jsonString);
+    public String sendPutRequest(String jsonString) {
+        return resource.sendPutRequest(jsonString);
     }
 
     public List<Double> getDataSince(long date) {
         return observer.getDataSince(date);
-    }
-
-    public String getState() {
-        return observer.getState();
     }
 }

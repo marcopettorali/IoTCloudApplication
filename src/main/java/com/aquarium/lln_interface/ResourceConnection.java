@@ -27,11 +27,13 @@ public class ResourceConnection {
     }
 
 
-    public void sendPostRequest(String jsonString) {
-        client.post(jsonString, MediaTypeRegistry.APPLICATION_JSON);
+    public String sendPostRequest(String jsonString) {
+        CoapResponse resp = client.post(jsonString, MediaTypeRegistry.APPLICATION_JSON);
+        return resp.getResponseText();
     }
 
-    public void sendPutRequest(String jsonString) {
-        client.put(jsonString, MediaTypeRegistry.APPLICATION_JSON);
+    public String sendPutRequest(String jsonString) {
+        CoapResponse resp = client.put(jsonString, MediaTypeRegistry.APPLICATION_JSON);
+        return resp.getResponseText();
     }
 }

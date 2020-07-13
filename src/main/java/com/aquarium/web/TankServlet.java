@@ -1,5 +1,7 @@
 package com.aquarium.web;
 
+import com.aquarium.lln_interface.Device;
+import com.aquarium.lln_interface.RegisteredDevices;
 import com.aquarium.web.model.*;
 
 import javax.servlet.RequestDispatcher;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet (
         name="tankservlet",
@@ -20,9 +23,48 @@ public class TankServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        //TODO: use this attribute to retrieve the real tank from Californium
-        String tankID = (String) req.getAttribute("id");
+        int tankID = Integer.getInteger ( (String) req.getAttribute("id"), -1);
+        if(tankID == -1) {
+            System.err.println("The tank id inserted does not exist.");
+            RequestDispatcher view = req.getRequestDispatcher("index.html");
+            view.forward(req, resp);
+        }
 
+        List<Device> acts = RegisteredDevices.query(null, tankID, "actuator", null, null);
+        List<Device> sens = RegisteredDevices.query(null, tankID, "sensor", null, null);
+
+        if(sens.size() == 0) {
+            System.err.println("This tank does not contain sensors.");
+            RequestDispatcher view = req.getRequestDispatcher("index.html");
+            view.forward(req, resp);
+            return;
+        }
+
+        ArrayList<Sensor> sensors = new ArrayList<>();
+        ArrayList<Actuator> actuators = new ArrayList<>();
+
+        for(Device sensor: sens) {
+            Sensor s_temp = new Sensor((com.aquarium.lln_interface.Sensor) sensor);
+            sensors.add(s_temp);
+        }
+
+        for(Device actuator: acts) {
+            Actuator a_temp = new Actuator((com.aquarium.lln_interface.Actuator) actuator);
+            actuators.add(a_temp);
+        }
+
+        for(Sensor s_model: sensors) {
+            Actuator.ActuatorDescriptor act_type = s_model.getLinkedActuator();
+            for(Actuator a_model: actuators) {
+                if(a_model.getClassDescriptor() == act_type) {
+                    s_model.addActuator(a_model);
+                }
+            }
+        }
+
+        Tank myTank = new Tank(tankID, "Tank_" + tankID, sensors);
+
+        /*
         ArrayList<Sensor> fixedSensors = new ArrayList<>();
 
         Actuator tempAct = new Actuator("ox_act_1", 0, "OFF", Actuator.ActuatorDescriptor.OXYGENATOR);
@@ -41,7 +83,9 @@ public class TankServlet extends HttpServlet {
 
         Tank fixed = new Tank("Tank_1", "Sharks tank", false, fixedSensors);
 
-        req.setAttribute("tank", fixed);
+         */
+
+        req.setAttribute("tank", myTank);
 
         RequestDispatcher view = req.getRequestDispatcher("tank.jsp");
         view.forward(req, resp);

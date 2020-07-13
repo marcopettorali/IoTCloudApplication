@@ -1,39 +1,82 @@
 package com.aquarium.web.model;
 
+import com.aquarium.lln_interface.RegisteredDevices;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 /**
  * Simple class modeling the descriptor of a sensor
  */
 public class Sensor {
 
+    public final long  DEFAULT_AGE = 3600000; //last 2 hour samples
+
     public enum SensorDescriptor {
-        OXYGEN, PH_NH3, TEMPERATURE, LIGHT_INTENSITY, NONE
+        OXYGEN, PH, NH3, TEMPERATURE, LIGHT_INTENSITY, NONE
     }
 
     public String identifier;
-    public float currentValue;
-    public float currentValue2; //used only in PH_NH3 sensor for NH3 value
     public String status;
     public SensorDescriptor classDescriptor;
-    public Actuator actuator;
+    public List<Actuator> actuators;
 
-    public Sensor(String identifier, float currentValue, String status, SensorDescriptor descriptor, Actuator actuator) {
+    public List<Double> lastValues;
+    public long lastValuesAge;
+
+    public Sensor(String identifier, String status, SensorDescriptor descriptor, Actuator actuator) {
         this.identifier = identifier;
-        this.currentValue = currentValue;
         this.classDescriptor = descriptor;
         this.status = status;
         if(actuator.classDescriptor != getLinkedActuator())
-            this.actuator = null;
-        else
-            this.actuator = actuator;
+            this.actuators = null;
+        else {
+            this.actuators = new ArrayList<>();
+            actuators.add(actuator);
+        }
+
+        lastValues = null;
+        lastValuesAge = -1;
+    }
+
+    public Sensor( com.aquarium.lln_interface.Sensor s) {
+        this.identifier = s.getRoom() + "_" + s.getMetric() +
+                "_s_" + s.getDeviceId();
+
+        long date = new Date().getTime() - DEFAULT_AGE;
+        this.lastValuesAge = date;
+        this.lastValues = s.getDataSince(date);
+        this.status = s.getState();
+        this.classDescriptor = mapType(s.getType());
+        this.actuators = new ArrayList<>();
     }
 
     public Actuator.ActuatorDescriptor getLinkedActuator() {
         switch (classDescriptor) {
             case OXYGEN: return Actuator.ActuatorDescriptor.OXYGENATOR;
-            case PH_NH3: return Actuator.ActuatorDescriptor.WATER_CHANGE;
+            case PH: case NH3: return Actuator.ActuatorDescriptor.WATER_CHANGE;
             case TEMPERATURE: return Actuator.ActuatorDescriptor.THERMO_REGULATOR;
             case LIGHT_INTENSITY: return Actuator.ActuatorDescriptor.LIGHT;
             default: return Actuator.ActuatorDescriptor.NONE;
+        }
+    }
+
+    public static SensorDescriptor mapType(String type) {
+        switch (type) {
+            case "luminosity":
+                return SensorDescriptor.LIGHT_INTENSITY;
+            case "oxygen":
+                return SensorDescriptor.OXYGEN;
+            case "temperature":
+                return SensorDescriptor.TEMPERATURE;
+            case "ph":
+                return SensorDescriptor.PH;
+            case "nh3":
+                return SensorDescriptor.NH3;
+            default:
+                return SensorDescriptor.NONE;
+
         }
     }
 
@@ -41,9 +84,6 @@ public class Sensor {
         return identifier;
     }
 
-    public float getCurrentValue() {
-        return currentValue;
-    }
 
     public String getStatus() {
         return status;
@@ -53,17 +93,10 @@ public class Sensor {
         return classDescriptor;
     }
 
-    public Actuator getActuator() {
-        return actuator;
+    public void addActuator(Actuator a) {
+        actuators.add(a);
     }
 
-    public float getCurrentValue2() {
-        return currentValue2;
-    }
-
-    public void setCurrentValue2(float currentValue2) {
-        this.currentValue2 = currentValue2;
-    }
 
 
 }

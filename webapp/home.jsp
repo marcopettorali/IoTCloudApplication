@@ -50,8 +50,7 @@
             <ul>
                 <li>
                     In this moment we are monitoring the status of <c:out value="${requestScope['tanks']}"/> tanks.
-                    Of these, <c:out value="${requestScope['indoorTanks']}"/> are indoor and <c:out value="${requestScope['outdoorTanks']}"/>
-                    are outdoor. Even tanks' artificial illumination is smart monitored and controlled.
+                    Even tanks' artificial illumination is smart monitored and controlled.
                 </li>
                 <li>
                     there are <c:out value="${requestScope['oxygenSensors']}"/> active oxygen sensors and
