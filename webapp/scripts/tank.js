@@ -27,12 +27,11 @@ function handleToggle(evt) {
     const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
-            var resp = JSON.parse(this.responseText);
+            let resp = JSON.parse(this.responseText);
 
-            //TODO: check the response
-            var toggle = getToggle(resp.id);
+            let toggle = getToggle(resp.id);
             if(toggle != null) {
-                toggle.checked = !toggle.checked;
+                toggle.checked = resp.response === "1";
             }
         }
     };

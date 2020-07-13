@@ -44,12 +44,15 @@
     <ul>
         <c:forEach var="sensor" items="${tank.sensors}">
             <li <c:out value="id=${sensor.identifier}"/>>
-                <c:set value='${sensor.actuator}' var="tempAct"/>
+                <c:set value='${sensor.actuators}' var="tempAct"/>
                 <c:choose>
                     <c:when test="${sensor.classDescriptor eq 'OXYGEN'}">
                         <div>
                             <h4>Oxygen sensor</h4>
-                            <p>The sensor measures an O2 level of <c:out value="${sensor.currentValue}"/></p>
+                            <p>
+                                The sensor measures an O2 level of
+                                <c:out value="${sensor.lastValues.get(sensor.lastValues.size() - 1)}"/>
+                            </p>
                             <p>Status: <c:out value="${sensor.status}"/></p>
                             <button type="button">Plot</button>
                         </div>

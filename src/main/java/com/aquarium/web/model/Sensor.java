@@ -97,6 +97,14 @@ public class Sensor {
         actuators.add(a);
     }
 
+    public List<Actuator> getActuators() {
+        return actuators;
+    }
+
+    public List<Double> getLastValues() {
+        return lastValues;
+    }
+
 
 
 }
