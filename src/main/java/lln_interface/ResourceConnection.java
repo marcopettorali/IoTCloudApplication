@@ -1,3 +1,5 @@
+package lln_interface;
+
 import org.eclipse.californium.core.*;
 import org.eclipse.californium.core.coap.*;
 

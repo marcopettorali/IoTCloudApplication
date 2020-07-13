@@ -1,3 +1,5 @@
+package lln_interface;
+
 import org.eclipse.californium.core.*;
 import util.*;
 
@@ -6,6 +8,7 @@ import java.util.*;
 public class DoubleObserver {
 
     private DataHistory<Double> dataHistory;
+    private String state = "WORKING";
 
     public DoubleObserver(String address, int historySize) {
         dataHistory = new DataHistory(historySize);
@@ -34,6 +37,7 @@ public class DoubleObserver {
                     new CoapHandler() {
                         @Override
                         public void onLoad(CoapResponse response) {
+                            state = "WORKING";
                             String content = response.getResponseText();
                             synchronized (dataHistory) {
                                 handleObservedData(content);
@@ -42,6 +46,7 @@ public class DoubleObserver {
 
                         @Override
                         public void onError() {
+                            state = "ERROR";
                             System.err.println("Failed");
                         }
                     });
@@ -55,5 +60,9 @@ public class DoubleObserver {
             ret = dataHistory.getDataSince(date);
         }
         return ret;
+    }
+
+    public String getState(){
+        return state;
     }
 }
