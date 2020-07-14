@@ -9,20 +9,12 @@ public class Device {
     private String metric;
     private int deviceId;
 
-    protected DoubleObserver observer;
-
     public Device(InetAddress address, int room, String type, String metric, Integer deviceId) {
         this.address = address;
         this.room = room;
         this.type = type;
         this.metric = metric;
         this.deviceId = deviceId;
-
-        String observedResourceAddress = "coap://[" + address.getHostAddress() + "]/" + metric;
-        if(type.equals("actuator"))
-            observedResourceAddress += "_actuator";
-        this.observer = new DoubleObserver(observedResourceAddress, 256);
-
     }
 
     public InetAddress getAddress() {
@@ -43,10 +35,6 @@ public class Device {
 
     public int getDeviceId() {
         return deviceId;
-    }
-
-    public String getState() {
-        return observer.getState();
     }
 
     @Override

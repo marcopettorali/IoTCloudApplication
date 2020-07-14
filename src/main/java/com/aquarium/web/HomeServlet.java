@@ -11,8 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.aquarium.lln_interface.Device;
-import com.aquarium.lln_interface.RegisteredDevices;
+import com.aquarium.lln_interface.*;
 
 @WebServlet(
         name = "homeservlet",
@@ -34,9 +33,18 @@ public class HomeServlet extends HttpServlet{
 
         List<Device> allDevices = RegisteredDevices.query(null, null, null, null, null);
         for(Device dev: allDevices) {
-            if(dev.getState() != null && !dev.getState().equals("WORKING")) {
-                warnings.put("Tank " + dev.getRoom(), dev.getState());
+            if(dev.getType().equals("sensor")){
+                Sensor sen = (Sensor) dev;
+                if(sen.getState() != null && !sen.getState().equals("WORKING")) {
+                    warnings.put("Tank " + dev.getRoom(), sen.getState());
+                }
+            }else if(dev.getType().equals("actuator")){
+                Actuator sen = (Actuator) dev;
+                if(sen.getState() != null && !sen.getState().equals("WORKING")) {
+                    warnings.put("Tank " + dev.getRoom(), sen.getState());
+                }
             }
+
         }
         if (warnings.isEmpty())
             warnings = null;

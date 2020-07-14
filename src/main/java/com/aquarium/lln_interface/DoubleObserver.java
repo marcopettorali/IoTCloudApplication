@@ -8,9 +8,11 @@ import java.util.*;
 public class DoubleObserver {
 
     private DataHistory<Double> dataHistory;
+    private String tag;
     private String state = "WORKING";
 
-    public DoubleObserver(String address, int historySize) {
+    public DoubleObserver(String address, int historySize, String tag) {
+        this.tag = tag;
         dataHistory = new DataHistory(historySize);
         ObservingThread thread = new ObservingThread(address);
         thread.setDaemon(true);
@@ -19,7 +21,9 @@ public class DoubleObserver {
 
     private void handleObservedData(String content){
         synchronized (dataHistory) {
-            dataHistory.add(Double.parseDouble(content));
+            double value = Double.parseDouble(content);
+            dataHistory.add(value);
+            System.out.println(tag + " observed value: " + value);
         }
     }
 
@@ -47,7 +51,7 @@ public class DoubleObserver {
                         @Override
                         public void onError() {
                             state = "ERROR";
-                            System.err.println("Failed");
+                            System.err.println(tag + ": failed observe");
                         }
                     });
             while (true) ;

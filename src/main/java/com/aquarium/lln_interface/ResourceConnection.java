@@ -12,10 +12,10 @@ public class ResourceConnection {
         client = new CoapClient(resourceAddress);
     }
 
-    public void shutdown(){
+    public void shutdown() {
         client.shutdown();
     }
-    
+
     public String sendGetRequest(String[] params) {
         Request req = new Request(CoAP.Code.GET);
         req.getOptions().setAccept(MediaTypeRegistry.APPLICATION_JSON);
@@ -32,8 +32,11 @@ public class ResourceConnection {
         return resp.getResponseText();
     }
 
-    public String sendPutRequest(String jsonString) {
-        CoapResponse resp = client.put(jsonString, MediaTypeRegistry.APPLICATION_JSON);
+    public String sendPutRequest(String param) {
+        Request req = new Request(CoAP.Code.GET);
+        req.getOptions().setAccept(MediaTypeRegistry.APPLICATION_JSON);
+        req.getOptions().addUriQuery(param);
+        CoapResponse resp = client.advanced(req);
         return resp.getResponseText();
     }
 }

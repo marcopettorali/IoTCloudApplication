@@ -20,7 +20,6 @@ public class DataHistory<T> {
     public void add(T elem) {
         values[index] = elem;
         timestamps[index] = new Date().getTime();
-        System.out.println(index + ") " + values[index] + " @" + timestamps[index]);
         index = (index + 1) % size;
         if (index == 0) {
             full = true;
@@ -32,7 +31,6 @@ public class DataHistory<T> {
         if (!full) {
             for (int i = 0; i < index; i++) {
                 ret.add(values[i]);
-                System.out.println(values[i]);
             }
         } else {
             for (int i = 0; i < size; i++) {
