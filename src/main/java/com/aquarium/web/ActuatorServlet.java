@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 
 @WebServlet (
@@ -32,40 +33,14 @@ public class ActuatorServlet extends HttpServlet{
             return;
         }
 
-        int room_id;
-        String metric;
-        int deviceID;
-        String type;
-
-        String[] parse = actuatorID.split("_");
-        if(parse.length < 3) {
-            System.err.println("Error: Wrong actuator ID format");
+        Device dev = RequestHandler.getOneDevice(actuatorID);
+        if(dev == null) {
             RequestDispatcher view = req.getRequestDispatcher("index.html");
             view.forward(req, resp);
             return;
         }
 
-        room_id = Integer.getInteger(parse[0], -1);
-        metric = parse[1];
-        type = "actuator";
-        deviceID = Integer.getInteger(parse[0], -1);
-
-        if(room_id == -1 || deviceID == -1) {
-            System.err.println("Error: Wrong room or device ID");
-            RequestDispatcher view = req.getRequestDispatcher("index.html");
-            view.forward(req, resp);
-            return;
-        }
-
-        List<Device> tmpList = RegisteredDevices.query(null, room_id, type, metric, deviceID);
-        if (tmpList.size() != 1) { //
-            System.err.println("Error: actuator could not be retrieved or many actuators with same ID");
-            RequestDispatcher view = req.getRequestDispatcher("index.html");
-            view.forward(req, resp);
-            return;
-        }
-
-        com.aquarium.lln_interface.Actuator actuator = (Actuator) tmpList.get(0);
+        com.aquarium.lln_interface.Actuator actuator = (Actuator) dev;
 
         //just an empty put request will trigger the actuator
         String response = actuator.sendPutRequest("");
@@ -76,10 +51,10 @@ public class ActuatorServlet extends HttpServlet{
             return;
         }
 
-        JSONObject json = new JSONObject();
-        json.put("id", actuatorID);
-        json.put("outcome", "good");
-        json.put("response", response);
+        HashMap<String, String> outParams = new HashMap<>();
+        outParams.put("id", actuatorID);
+        outParams.put("response", response);
+        JSONObject json = new JSONObject(outParams);
 
 
         PrintWriter out = resp.getWriter();

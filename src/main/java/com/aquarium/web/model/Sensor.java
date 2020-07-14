@@ -105,6 +105,25 @@ public class Sensor {
         return lastValues;
     }
 
+    public double getCurrentValue() {
+        if(lastValues.size() != 0)
+            return lastValues.get(lastValues.size() - 1);
+        return Double.MAX_VALUE;
+    }
+
+    public Sensor getLinkedSensor(List<Sensor> sensors) {
+        if(this.classDescriptor != SensorDescriptor.PH && this.classDescriptor != SensorDescriptor.NH3)
+            return null;
+
+        for(Sensor s: sensors) {
+            if(this.classDescriptor == SensorDescriptor.PH && s.classDescriptor == SensorDescriptor.NH3)
+                return s;
+            if(this.classDescriptor == SensorDescriptor.NH3 && s.classDescriptor == SensorDescriptor.PH)
+                return s;
+        }
+        return null;
+    }
+
 
 
 }

@@ -17,7 +17,6 @@ public class Actuator {
     public String identifier;
     String status;
     ActuatorDescriptor classDescriptor;
-
     List<Double> lastValues;
     long lastValuesAge;
 
@@ -48,6 +47,16 @@ public class Actuator {
 
     public ActuatorDescriptor getClassDescriptor() {
         return classDescriptor;
+    }
+
+    public List<Double> getLastValues() {
+        return lastValues;
+    }
+
+    public double getCurrentValue() {
+        if(lastValues.size() != 0)
+            return lastValues.get(lastValues.size() - 1);
+        return Double.MAX_VALUE;
     }
 
     public static Actuator.ActuatorDescriptor mapType(String type) {
