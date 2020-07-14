@@ -27,6 +27,17 @@ public class ActuatorServlet extends HttpServlet{
             return;
         }
 
+        String value = req.getParameter("value");
+        if(value == null) {
+            resp.sendError(resp.SC_BAD_REQUEST);
+            return;
+        }
+        int val = Integer.getInteger(value, -1);
+        if((val != 0 && val != 1)) {
+            resp.sendError(resp.SC_BAD_REQUEST);
+            return;
+        }
+
         Device dev = RequestHandler.getOneDevice(actuatorID);
         if(dev == null) {
             RequestDispatcher view = req.getRequestDispatcher("index.html");
@@ -36,10 +47,15 @@ public class ActuatorServlet extends HttpServlet{
 
         com.aquarium.lln_interface.Actuator actuator = (Actuator) dev;
 
-        //just an empty put request will trigger the actuator
-        String response = actuator.sendPutRequest("");
+        String response;
+        if(val == 1) {
+            response = actuator.turnOn();
+        }
+        else {
+            response = actuator.turnOff();
+        }
         if(response == null) {
-            System.err.println("Could not receive put response from the device");
+            System.err.println("Could not receive response from the device");
             RequestDispatcher view = req.getRequestDispatcher("index.html");
             view.forward(req, resp);
             return;
