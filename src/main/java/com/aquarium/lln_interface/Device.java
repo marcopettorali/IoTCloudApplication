@@ -18,6 +18,11 @@ public class Device {
         this.metric = metric;
         this.deviceId = deviceId;
 
+        String observedResourceAddress = "coap://[" + address.getHostAddress() + "]/" + metric;
+        if(type.equals("actuator"))
+            observedResourceAddress += "_actuator";
+        this.observer = new DoubleObserver(observedResourceAddress, 256);
+
     }
 
     public InetAddress getAddress() {

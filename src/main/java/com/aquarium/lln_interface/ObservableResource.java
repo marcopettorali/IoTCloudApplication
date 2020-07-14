@@ -23,7 +23,7 @@ public class ObservableResource extends CoapResource {
         @Override
         public void run() {
             num = (int) (Math.random() * 1000);
-            System.out.println(name + " " + num);
+            //System.out.println(name + " " + num);
             changed();
         }
     }

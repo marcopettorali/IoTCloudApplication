@@ -34,7 +34,7 @@ public class HomeServlet extends HttpServlet{
 
         List<Device> allDevices = RegisteredDevices.query(null, null, null, null, null);
         for(Device dev: allDevices) {
-            if(!dev.getState().equals("WORKING")) {
+            if(dev.getState() != null && !dev.getState().equals("WORKING")) {
                 warnings.put("Tank " + dev.getRoom(), dev.getState());
             }
         }

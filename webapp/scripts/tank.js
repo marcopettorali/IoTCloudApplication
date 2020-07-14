@@ -19,10 +19,28 @@ function getPlotButtons() {
         if(actuatorContainers[i].id !== "") {
             var button = actuatorContainers[i].getElementsByTagName("button")[0];
             button.deviceID = actuatorContainers[i].id;
+            if(button.deviceID.includes("ph")) {
+                var nh = getButtonBySubstr("nh3");
+                button.linkedID = nh.deviceID;
+            }
+            if(button.deviceID.includes("nh3")) {
+                var ph = getButtonBySubstr("ph");
+                button.linkedID = ph.deviceID;
+            }
             result.push(button);
         }
     }
     return result;
+}
+
+function getButtonBySubstr(s) {
+    var actuatorContainers = document.getElementsByTagName("div");
+    for(var cont in actuatorContainers) {
+        if (cont.id.includes(s)) {
+            return actuatorContainers[i].getElementsByTagName("button")[0];
+        }
+    }
+    return null;
 }
 
 function getToggle(actuatorID) {
@@ -56,7 +74,7 @@ function handleToggle(evt) {
 function handlePlot(evt) {
     var title;
     const id = encodeURIComponent(evt.currentTarget.deviceID);
-    const post_par = "id="+id; //+"&value="+value; value is for future improvements
+    var post_par = "id="+id; //+"&value="+value; value is for future improvements
 
     var splitted_id = id.split("_");
     var metric;
@@ -70,8 +88,10 @@ function handlePlot(evt) {
     if(metric !== "ph" && metric !== "nh3") {
         title = metric + " for " + type + ": last 2 hours";
     }
-    else
+    else {
         title = "Sensors for Ph and NH3: last 2 hours";
+        post_par += "&id2=" + evt.currentTarget.linkedID;
+    }
 
     const xhttp = new XMLHttpRequest();
     xhttp.metric = metric;

@@ -10,7 +10,6 @@ public class Actuator extends Device {
         super(address, room, type, metric, deviceId);
         String observedResourceAddress = "coap://[" + address.getHostAddress() + "]/" + metric + "_actuator";
         this.resource = new ResourceConnection(observedResourceAddress);
-        this.observer = new DoubleObserver(observedResourceAddress, 256);
     }
 
     public String sendGetRequest(String[] params) {

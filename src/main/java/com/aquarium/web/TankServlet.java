@@ -23,11 +23,14 @@ public class TankServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        int tankID = Integer.getInteger ( (String) req.getAttribute("id"), -1);
+        System.out.println("HELLO!");
+
+        int tankID = Integer.getInteger ( (String) req.getParameter("id"), -1);
         if(tankID == -1) {
             System.err.println("The tank id inserted does not exist.");
             RequestDispatcher view = req.getRequestDispatcher("index.html");
             view.forward(req, resp);
+            return;
         }
 
         List<Device> acts = RegisteredDevices.query(null, tankID, "actuator", null, null);

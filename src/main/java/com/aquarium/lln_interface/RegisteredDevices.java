@@ -3,7 +3,9 @@ package com.aquarium.lln_interface;
 import java.util.*;
 
 public class RegisteredDevices {
-    private static List<Device> registeredDevices;
+
+    //volatile since this variable is accessed from both Coap and Http servers
+    private static volatile List<Device> registeredDevices;
 
     static {
         registeredDevices = new ArrayList<>();
