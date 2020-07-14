@@ -30,6 +30,14 @@ public class Actuator extends Device {
         return resource.sendPutRequest("t_h=" + value);
     }
 
+    public String setLowThresholdWithMetric(double value, String metric) {
+        return resource.sendPutRequest("t_l_" + metric + "=" + value);
+    }
+
+    public String setHighThresholdWithMetric(double value, String metric) {
+        return resource.sendPutRequest("t_h_" + metric + "=" + value);
+    }
+
     public String sendGetRequest(String[] params) {
         return resource.sendGetRequest(params);
     }
