@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>it.bpp</groupId>
-    <artifactId>CaliforniumIoT</artifactId>
+    <artifactId>IoTCloudApplication</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>CaliforniumIoT</name>
 

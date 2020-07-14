@@ -3,12 +3,6 @@
     <output-path>$PROJECT_DIR$/out/artifacts/IoTCloudApplication_war</output-path>
     <root id="archive" name="IoTCloudApplication_war.war">
       <element id="artifact" artifact-name="IoTCloudApplication:war exploded" />
-      <element id="javaee-facet-resources" facet="CaliforniumIoT/web/Web" />
-      <element id="directory" name="WEB-INF">
-        <element id="directory" name="classes">
-          <element id="module-output" name="CaliforniumIoT" />
-        </element>
-      </element>
     </root>
   </artifact>
 </component>
