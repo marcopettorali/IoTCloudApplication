@@ -32,7 +32,7 @@ public class ActuatorServlet extends HttpServlet{
             resp.sendError(resp.SC_BAD_REQUEST);
             return;
         }
-        int val = Integer.getInteger(value, -1);
+        int val = RequestHandler.parseInt(value, -1);
         if((val != 0 && val != 1)) {
             resp.sendError(resp.SC_BAD_REQUEST);
             return;

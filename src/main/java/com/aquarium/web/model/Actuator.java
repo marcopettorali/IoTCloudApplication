@@ -11,7 +11,12 @@ public class Actuator {
     public final long  DEFAULT_AGE = 3600000; //last 2 hour samples
 
     public enum ActuatorDescriptor {
-        LIGHT, OXYGENATOR, THERMO_REGULATOR, WATER_CHANGE, NONE
+        LIGHT, OXYGENATOR, THERMO_REGULATOR, WATER_CHANGE, NONE;
+
+        public String getName() {
+            return name();
+        }
+
     }
 
     public String identifier;
@@ -34,7 +39,7 @@ public class Actuator {
         this.lastValuesAge = date;
         this.lastValues = a.getDataSince(date);
         this.status= a.getState();
-        this.classDescriptor = mapType(a.getType());
+        this.classDescriptor = mapType(a.getMetric());
     }
 
     public String getIdentifier() {
@@ -61,7 +66,7 @@ public class Actuator {
 
     public static Actuator.ActuatorDescriptor mapType(String type) {
         switch (type) {
-            case "luminosity":
+            case "light":
                 return ActuatorDescriptor.LIGHT;
             case "oxygen":
                 return ActuatorDescriptor.OXYGENATOR;

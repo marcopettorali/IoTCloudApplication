@@ -49,10 +49,11 @@
 
         <c:forEach var="sensor" items="${tank.sensors}">
             <% Sensor current_s = (Sensor)request.getAttribute("sensor"); %>
-            <li <c:out value="id=${sensor.identifier}"/>>
+            <li <c:out value="id=${sensor.liID}"/>>
                 <c:set value='${sensor.actuators}' var="acts"/>
+                <c:out value="${sensor.classDescriptor.name()}"/>
                 <c:choose>
-                    <c:when test="${sensor.classDescriptor eq 'OXYGEN'}">
+                    <c:when test="${sensor.classDescriptor.name() eq 'OXYGEN'}">
                         <div>
                             <h4>Oxygen sensor</h4>
                             <p>
@@ -89,7 +90,7 @@
                         </c:forEach>
                     </c:when>
 
-                    <c:when test="${sensor.classDescriptor eq 'TEMPERATURE'}">
+                    <c:when test="${sensor.classDescriptor.name() eq 'TEMPERATURE'}">
                         <div>
                             <h4>Thermometer</h4>
                             <p>Temperature: <c:out value="${sensor.currentValue}"/>°C</p>
@@ -123,7 +124,7 @@
                         </c:forEach>
                     </c:when>
 
-                    <c:when test="${sensor.classDescriptor eq 'LIGHT_INTENSITY'}">
+                    <c:when test="${sensor.classDescriptor.name() eq 'LIGHT_INTENSITY'}">
                         <div>
                             <h4>Light intensity</h4>
                             <p>Light strength: <c:out value="${sensor.currentValue}"/> lux</p>
@@ -153,12 +154,12 @@
                         </c:forEach>
                     </c:when>
 
-                    <c:when test="${(sensor.classDescriptor eq 'PH') or (sensor.classDescriptor eq 'NH3')}">
+                    <c:when test="${(sensor.classDescriptor.name() eq 'PH') or (sensor.classDescriptor.name() eq 'NH3')}">
                         <c:if test="${ph_nh3_done eq false}">
                             <c:set value="<%=current_s.getLinkedSensor(current_t.getSensors())%>" var="linked"/>
                             <div>
                                 <c:choose>
-                                    <c:when test="${sensor.classDescriptor eq 'PH'}">
+                                    <c:when test="${sensor.classDescriptor.name() eq 'PH'}">
                                         <h4>Acidity and Ammonium</h4>
                                         <p>Ph: <c:out value="${sensor.currentValue}"/></p>
                                         <p>NH4+/NH3: <c:out value="${linked.currentValue} mg/L"/></p>

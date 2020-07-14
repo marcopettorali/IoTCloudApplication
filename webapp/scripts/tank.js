@@ -5,8 +5,10 @@ function getToggleButtons() {
     for(var i = 0; i < actuatorContainers.length; ++i) {
         if(actuatorContainers[i].id !== "") {
             var toggle = actuatorContainers[i].getElementsByTagName("input")[0];
-            toggle.actuatorID = actuatorContainers[i].id;
-            result.push(toggle);
+            if (toggle !== undefined) {
+                toggle.actuatorID = actuatorContainers[i].id;
+                result.push(toggle);
+            }
         }
     }
     return result;
@@ -16,18 +18,20 @@ function getPlotButtons() {
     var actuatorContainers = document.getElementsByTagName("div");
     var result = [];
     for(var i = 0; i < actuatorContainers.length; ++i) {
-        if(actuatorContainers[i].id !== "") {
+        if(actuatorContainers[i].id === "") {
             var button = actuatorContainers[i].getElementsByTagName("button")[0];
-            button.deviceID = actuatorContainers[i].id;
-            if(button.deviceID.includes("ph")) {
-                var nh = getButtonBySubstr("nh3");
-                button.linkedID = nh.deviceID;
+            if(button !== undefined) {
+                button.deviceID = actuatorContainers[i].id;
+                if (button.deviceID.includes("ph")) {
+                    var nh = getButtonBySubstr("nh3");
+                    button.linkedID = nh.deviceID;
+                }
+                if (button.deviceID.includes("nh3")) {
+                    var ph = getButtonBySubstr("ph");
+                    button.linkedID = ph.deviceID;
+                }
+                result.push(button);
             }
-            if(button.deviceID.includes("nh3")) {
-                var ph = getButtonBySubstr("ph");
-                button.linkedID = ph.deviceID;
-            }
-            result.push(button);
         }
     }
     return result;
@@ -52,6 +56,7 @@ function getToggle(actuatorID) {
 
 function handleToggle(evt) {
     evt.preventDefault();
+    alert("Toggle received!");
     const id = encodeURIComponent(evt.currentTarget.actuatorID);
     const value = evt.currentTarget.checked === true ?  "OFF" : "ON";
     const post_par = "id="+id + "&value="+ value;
@@ -73,6 +78,7 @@ function handleToggle(evt) {
 
 function handlePlot(evt) {
     var title;
+    alert("Plot received!");
     const id = encodeURIComponent(evt.currentTarget.deviceID);
     var post_par = "id="+id; //+"&value="+value; value is for future improvements
 

@@ -14,7 +14,12 @@ public class Sensor {
     public final long  DEFAULT_AGE = 3600000; //last 2 hour samples
 
     public enum SensorDescriptor {
-        OXYGEN, PH, NH3, TEMPERATURE, LIGHT_INTENSITY, NONE
+        OXYGEN, PH, NH3, TEMPERATURE, LIGHT_INTENSITY, NONE;
+
+        public String getName() {
+            return name();
+        }
+
     }
 
     public String identifier;
@@ -48,7 +53,7 @@ public class Sensor {
         this.lastValuesAge = date;
         this.lastValues = s.getDataSince(date);
         this.status = s.getState();
-        this.classDescriptor = mapType(s.getType());
+        this.classDescriptor = mapType(s.getMetric());
         this.actuators = new ArrayList<>();
     }
 
@@ -64,7 +69,7 @@ public class Sensor {
 
     public static SensorDescriptor mapType(String type) {
         switch (type) {
-            case "luminosity":
+            case "light":
                 return SensorDescriptor.LIGHT_INTENSITY;
             case "oxygen":
                 return SensorDescriptor.OXYGEN;
@@ -84,6 +89,7 @@ public class Sensor {
         return identifier;
     }
 
+    public String getLiID() {return "li_" + identifier;}
 
     public String getStatus() {
         return status;

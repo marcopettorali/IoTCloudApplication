@@ -20,10 +20,10 @@ public class RequestHandler {
             return null;
         }
 
-        room_id = Integer.getInteger(parse[0], -1);
+        room_id = parseInt(parse[0], -1);
         metric = parse[1];
         type = "actuator";
-        deviceID = Integer.getInteger(parse[3], -1);
+        deviceID = parseInt(parse[3], -1);
 
         if(room_id == -1 || deviceID == -1) {
             System.err.println("Error: Wrong room or device ID");
@@ -38,4 +38,14 @@ public class RequestHandler {
 
         return tmpList.get(0);
     }
+
+    public static int parseInt(String s, int defaultValue) {
+        try {
+            return Integer.parseInt(s);
+        } catch (NumberFormatException e) {
+            return defaultValue;
+        }
+
+    }
+
 }
