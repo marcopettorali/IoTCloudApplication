@@ -1,6 +1,7 @@
 package com.aquarium.lln_interface;
 
 import org.eclipse.californium.core.*;
+import org.eclipse.californium.core.network.CoapEndpoint;
 
 import java.net.*;
 
@@ -28,8 +29,11 @@ public class MainCaliforniumIoT {
         }
     }
 
+    /*
     public static void main(String[] args) {
-        CoapServer server = new CoapServer();
+        CoapServer server = new CoapServer(5555, 6666);
+        //server.addEndpoint(new CoapEndpoint(5555));
+        //server.addEndpoint(new CoapEndpoint(6666));
         server.add(new DevicesResource());
         //serv.add(new CoAPResourceExample("hello"));
         //serv.add(new lln_interface.ObservableResource("obs"));
@@ -38,4 +42,6 @@ public class MainCaliforniumIoT {
         server.start();
 
     }
+
+     */
 }

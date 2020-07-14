@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="IoTCloudApplication:war exploded">
-    <output-path>$PROJECT_DIR$/out/artifacts/IoTCloudApplication</output-path>
+  <artifact type="exploded-war" build-on-make="true" name="IoTCloudApplication:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/IoTCloudApplication_war_exploded</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">

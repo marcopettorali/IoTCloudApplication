@@ -3,4 +3,66 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
     <display-name>The Aquarium webapp</display-name>
+
+    <servlet>
+        <servlet-name>actuatorservlet</servlet-name>
+        <servlet-class>com.aquarium.web.ActuatorServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>actuatorservlet</servlet-name>
+        <url-pattern>/actuator</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>homeservlet</servlet-name>
+        <servlet-class>com.aquarium.web.HomeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+    <servlet-name>homeservlet</servlet-name>
+    <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>plotservlet</servlet-name>
+        <servlet-class>com.aquarium.web.PlotServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>plotservlet</servlet-name>
+        <url-pattern>/plot</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>settingsservlet</servlet-name>
+        <servlet-class>com.aquarium.web.SettingsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>settingsservlet</servlet-name>
+        <url-pattern>/settings</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>tanklistservlet</servlet-name>
+        <servlet-class>com.aquarium.web.TankListServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>tanklistservlet</servlet-name>
+        <url-pattern>/tanklist</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>tankservlet</servlet-name>
+        <servlet-class>com.aquarium.web.TankServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>tankservlet</servlet-name>
+        <url-pattern>/tank</url-pattern>
+    </servlet-mapping>
+
+    <listener>
+        <listener-class>
+            com.aquarium.web.CoapLauncher
+        </listener-class>
+    </listener>
+
+
 </web-app>
