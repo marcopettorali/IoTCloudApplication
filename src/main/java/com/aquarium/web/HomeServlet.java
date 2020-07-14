@@ -2,7 +2,6 @@ package com.aquarium.web;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,10 +12,7 @@ import java.util.Map;
 
 import com.aquarium.lln_interface.*;
 
-@WebServlet(
-        name = "homeservlet",
-        urlPatterns = "/home"
-)
+
 public class HomeServlet extends HttpServlet{
 
     @Override

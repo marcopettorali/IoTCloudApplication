@@ -6,33 +6,34 @@ import com.aquarium.lln_interface.ObservableResource;
 import com.aquarium.lln_interface.RegisteredDevices;
 import org.eclipse.californium.core.CoapServer;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 import java.net.InetAddress;
 
 
-/**
- * This servlet is used to launch backend Coapserver
- */
+public class CoapLauncher implements ServletContextListener {
 
-@WebServlet (
-        name="coapservlet",
-        urlPatterns = "/coap",
-        loadOnStartup = 1
-)
-public class CoapServlet extends HttpServlet{
+    private static CoapServer coapServer = null;
+
 
     @Override
-    public void init() {
+    public void contextDestroyed(ServletContextEvent arg0) {
+        if (coapServer != null) {
+            System.out.println("Destroying Coap Server...");
+            coapServer.destroy();
+        }
+    }
+
+    @Override
+    public void contextInitialized(ServletContextEvent arg0) {
+
+        System.out.println("Launching Coap Server...");
         CoapServer server = new CoapServer();
         server.add(new DevicesResource());
         //server.add(new CoAPResourceExample("hello"));
         server.add(new ObservableResource("obs"));
         //populateFakeDevices();
+        coapServer = server;
         System.out.println("Rooms available: " + RegisteredDevices.countRooms());
         server.start();
     }
@@ -60,3 +61,4 @@ public class CoapServlet extends HttpServlet{
     }
 
 }
+
