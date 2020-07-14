@@ -21,7 +21,13 @@ public class DoubleObserver {
 
     private void handleObservedData(String content){
         synchronized (dataHistory) {
-            double value = Double.parseDouble(content);
+
+            double value;
+            try {
+                value =Double.parseDouble(content);
+            }catch(Exception e){
+                value = 0;
+            }
             dataHistory.add(value);
             System.out.println(tag + " observed value: " + value);
         }
