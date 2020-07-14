@@ -53,8 +53,8 @@ function getToggle(actuatorID) {
 function handleToggle(evt) {
     evt.preventDefault();
     const id = encodeURIComponent(evt.currentTarget.actuatorID);
-    //const value = evt.currentTarget.checked === true ?  "OFF" : "ON";
-    const post_par = "id="+id; //+"&value="+value; value is for future improvements
+    const value = evt.currentTarget.checked === true ?  "OFF" : "ON";
+    const post_par = "id="+id + "&value="+ value;
     const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
