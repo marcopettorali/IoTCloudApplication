@@ -56,7 +56,6 @@ function getToggle(actuatorID) {
 
 function handleToggle(evt) {
     evt.preventDefault();
-    alert("Toggle received!");
     const id = encodeURIComponent(evt.currentTarget.actuatorID);
     const value = evt.currentTarget.checked === true ?  "OFF" : "ON";
     const post_par = "id="+id + "&value="+ value;
@@ -91,11 +90,9 @@ function handleThreshold(evt) {
         post_params += ("&metric=" + button.ph_nh3);
     }
 
-    alert("Threshold received! " + post_params);
 
     const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
-        alert("Threshold received! " + post_params);
         if (this.readyState === 4 && this.status === 200) {
             let resp = JSON.parse(this.responseText);
             alert("The new threshold has been correctly set!");
