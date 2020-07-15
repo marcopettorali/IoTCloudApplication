@@ -1,17 +1,34 @@
 
 function getToggleButtons() {
-    var actuatorContainers = document.getElementsByTagName("div");
-    var result = [];
-    for(var i = 0; i < actuatorContainers.length; ++i) {
-        if(actuatorContainers[i].id !== "") {
-            var toggle = actuatorContainers[i].getElementsByTagName("input")[0];
-            if (toggle !== undefined) {
-                toggle.actuatorID = actuatorContainers[i].id;
-                result.push(toggle);
+    var inputs = document.getElementsByTagName("input");
+    var res = [];
+    for(var i = 0; i<inputs.length; ++i) {
+        if(inputs[i].id.startsWith("toggle")) {
+            res.push(inputs[i]);
+            inputs[i].actuatorID = inputs[i].id.substr(7); //7 = strlen("toggle_")
+        }
+    }
+    return res;
+}
+
+function getThresholdButtons() {
+    var buttons = document.getElementsByTagName("button");
+    var res = [];
+    for (var i = 0; i < buttons.length; ++i) {
+        if(buttons[i].id.startsWith("th")) {
+            res.push(buttons[i]);
+            var splittedID = buttons[i].id.split("_");
+            buttons[i].threshold = splittedID[1];
+            if( splittedID[2] === "ph" || splittedID[2] === "nh3" ) {
+                buttons[i].ph_nh3 = splittedID[2];
+                buttons[i].actuatorID = splittedID[3] + "_" + splittedID[4] + "_" + splittedID[5] + "_" + splittedID[6];
+            }
+            else {
+                buttons[i].actuatorID = splittedID[2] + "_" + splittedID[3] + "_" + splittedID[4] + "_" + splittedID[5];
             }
         }
     }
-    return result;
+    return res;
 }
 
 function getPlotButtons() {
@@ -56,6 +73,37 @@ function handleToggle(evt) {
     xhttp.open("POST", "./actuator", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(post_par);
+}
+
+function handleThreshold(evt) {
+
+    const button = evt.currentTarget;
+    const actuatorID = encodeURIComponent(button.actuatorID);
+
+    var value = button.parentElement.getElementsByTagName("input")[0].value;
+    value = encodeURIComponent(value);
+    const threshold = encodeURIComponent(button.threshold);
+
+
+    var post_params = "id=" + actuatorID + "&value=" + value + "&threshold=" + threshold;
+
+    if(button.ph_nh3 === "ph" || button.ph_nh3 === "nh3") {
+        post_params += ("&metric=" + button.ph_nh3);
+    }
+
+    alert("Threshold received! " + post_params);
+
+    const xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        alert("Threshold received! " + post_params);
+        if (this.readyState === 4 && this.status === 200) {
+            let resp = JSON.parse(this.responseText);
+            alert("The new threshold has been correctly set!");
+        }
+    };
+    xhttp.open("POST", "./threshold", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(post_params);
 }
 
 function handlePlot(evt) {
@@ -130,9 +178,17 @@ function setPlotListeners() {
     }
 }
 
+function setThresholdListeners() {
+    const buttons = getThresholdButtons();
+    for(var i = 0; i<buttons.length; ++i) {
+        buttons[i].addEventListener("click", handleThreshold);
+    }
+}
+
 function setListeners() {
     setToggleListeners();
     setPlotListeners();
+    setThresholdListeners();
 }
 
 

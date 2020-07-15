@@ -30,7 +30,7 @@ public class CoapLauncher implements ServletContextListener {
         server.add(new DevicesResource());
         //server.add(new CoAPResourceExample("hello"));
         //server.add(new ObservableResource("obs"));
-        //populateFakeDevices();
+        populateFakeDevices();
         coapServer = server;
         System.out.println("Rooms available: " + RegisteredDevices.countRooms());
         server.start();
@@ -40,11 +40,11 @@ public class CoapLauncher implements ServletContextListener {
         try {
             RegisteredDevices.insert(new Sensor(InetAddress.getByName("localhost"), 3, "sensor", "ph", 1));
             RegisteredDevices.insert(new Sensor(InetAddress.getByName("localhost"), 3, "sensor", "nh3", 1));
+            RegisteredDevices.insert(new Actuator(InetAddress.getByName("localhost"), 3, "actuator", "water", 1));
             RegisteredDevices.insert(new Sensor(InetAddress.getByName("localhost"), 1, "sensor", "oxygen", 1));
             RegisteredDevices.insert(new Actuator(InetAddress.getByName("localhost"), 1, "actuator", "oxygen", 1));
             RegisteredDevices.insert(new Sensor(InetAddress.getByName("localhost"), 3, "sensor", "luminosity", 1));
             RegisteredDevices.insert(new Actuator(InetAddress.getByName("localhost"), 3, "actuator", "luminosity", 1));
-            RegisteredDevices.insert(new Actuator(InetAddress.getByName("localhost"), 3, "actuator", "ph", 1));
             RegisteredDevices.insert(new Sensor(InetAddress.getByName("localhost"), 1, "sensor", "luminosity", 1));
             RegisteredDevices.insert(new Actuator(InetAddress.getByName("localhost"), 1, "actuator", "luminosity", 2));
             RegisteredDevices.insert(new Sensor(InetAddress.getByName("localhost"), 2, "sensor", "temperature", 1));

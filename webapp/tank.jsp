@@ -66,7 +66,6 @@
                         </div>
                         <div <c:out value="id=${sensor.identifier}"/> hidden>
                         </div>
-
                         <c:forEach var="tempAct" items="${acts}">
                             <div <c:out value="id=${tempAct.identifier}"/> >
                                 <c:if test="${tempAct == null}">
@@ -79,13 +78,28 @@
                                     <c:choose>
                                         <c:when test="${tempAct.currentValue eq 0}">
                                             <%-- OFF --%>
-                                            <input type="checkbox" class="O2Off">
+                                            <input <c:out value="id=${tempAct.toggleID}"/> type="checkbox" class="O2Off">
                                         </c:when>
                                         <c:otherwise> <%-- ON --%>
-                                            <input class="O2On" type="checkbox" checked>
+                                            <input <c:out value="id=${tempAct.toggleID}"/> class="O2On" type="checkbox" checked>
                                         </c:otherwise>
                                     </c:choose>
                                     </label>
+                                    <div <c:out value="id=${tempAct.thresholdID}"/>>
+                                        <p>
+                                            The oxygenator is automatically enabled when oxygen level is not in an interval
+                                            between a low and a high threshold. Here you can set these values to override
+                                            default ones.
+                                        </p>
+                                        <label>
+                                            <input type="text" name="l_t" placeholder="low threshold">
+                                            <button <c:out value="id=${tempAct.lowThresholdButtonID}"/>>SET</button>
+                                        </label>
+                                        <label>
+                                            <input type="text" name="h_t" placeholder="high threshold">
+                                            <button <c:out value="id=${tempAct.highThresholdButtonID}"/>>SET</button>
+                                        </label>
+                                    </div>
                                 </c:if>
                             </div>
                         </c:forEach>
@@ -118,13 +132,27 @@
                                     <label> Toggle:
                                         <c:choose>
                                             <c:when test="${tempAct.currentValue eq 0}"> <%-- OFF --%>
-                                                <input type="checkbox" class="ThermoOff">
+                                                <input <c:out value="id=${tempAct.toggleID}"/> type="checkbox" class="ThermoOff">
                                             </c:when>
                                             <c:otherwise> <%-- ON --%>
-                                                <input class="ThermoOn" type="checkbox" checked>
+                                                <input <c:out value="id=${tempAct.toggleID}"/> class="ThermoOn" type="checkbox" checked>
                                             </c:otherwise>
                                         </c:choose>
                                     </label>
+                                    <div <c:out value="id=${tempAct.thresholdID}"/>>
+                                        <p>
+                                            Thermo-regulator is automatically enabled when temperature is too hot
+                                            or too cold. Set the thresholds if you want to override default values.
+                                        </p>
+                                        <label>
+                                            <input type="text" name="l_t" placeholder="low threshold">
+                                            <button <c:out value="id=${tempAct.lowThresholdButtonID}"/>>SET</button>
+                                        </label>
+                                        <label>
+                                            <input type="text" name="h_t" placeholder="high threshold">
+                                            <button <c:out value="id=${tempAct.highThresholdButtonID}"/>>SET</button>
+                                        </label>
+                                    </div>
                                 </c:if>
                             </div>
                         </c:forEach>
@@ -153,13 +181,29 @@
                                     <label> Toggle:
                                         <c:choose>
                                             <c:when test="${tempAct.currentValue eq 0}"> <%-- OFF --%>
-                                                <input type="checkbox" class="lightOff">
+                                                <input <c:out value="id=${tempAct.toggleID}"/> type="checkbox" class="lightOff">
                                             </c:when>
                                             <c:otherwise> <%-- ON --%>
-                                                <input class="lightOn" type="checkbox" checked>
+                                                <input <c:out value="id=${tempAct.toggleID}"/> class="lightOn" type="checkbox" checked>
                                             </c:otherwise>
                                         </c:choose>
                                     </label>
+                                    <div <c:out value="id=${tempAct.thresholdID}"/>>
+                                        <p>
+                                            Each light has three levels of intensity: OFF, MEDIUM, MAX. Medium intensity
+                                            triggers when tank luminosity is in a certain range. Higher luminosity means
+                                            that lights are off, while lower means that lights are at max power. This
+                                            range can be set for each independent light set in the tank.
+                                        </p>
+                                        <label>
+                                            <input type="text" name="l_t" placeholder="MEDIUM<->MAX threshold">
+                                            <button <c:out value="id=${tempAct.lowThresholdButtonID}"/>>SET</button>
+                                        </label>
+                                        <label>
+                                            <input type="text" name="h_t" placeholder="OFF<->MEDIUM threshold">
+                                            <button <c:out value="id=${tempAct.highThresholdButtonID}"/>>SET</button>
+                                        </label>
+                                    </div>
                                 </c:if>
                             </div>
                         </c:forEach>
@@ -204,13 +248,41 @@
                                         <label> Toggle:
                                             <c:choose>
                                                 <c:when test="${tempAct.currentValue eq 0}"> <%-- OFF --%>
-                                                    <input type="checkbox" class="valveOff">
+                                                    <input <c:out value="id=${tempAct.toggleID}"/> type="checkbox" class="valveOff">
                                                 </c:when>
                                                 <c:otherwise> <%-- ON --%>
-                                                    <input class="valveOn" type="checkbox" checked>
+                                                    <input <c:out value="id=${tempAct.toggleID}"/> class="valveOn" type="checkbox" checked>
                                                 </c:otherwise>
                                             </c:choose>
                                         </label>
+                                        <div <c:out value="id=${tempAct.thresholdID}"/>>
+                                            <p>
+                                                Ammonium level is dangerous when Ph level is high, because in this case
+                                                it turns into poisonous ammonia. Here you can set the range of acceptable
+                                                levels for both Ph and Nh3/NH4+. Water valves will change part of the
+                                                water when levels become unacceptable.
+                                            </p>
+                                            <label>
+                                                Ph low threshold:
+                                                <input type="text" name="l_t" placeholder="between 0 and 14">
+                                                <button <c:out value="id=${tempAct.lowThresholdPHButtonID}"/>>SET</button>
+                                            </label>
+                                            <label>
+                                                Ph high threshold:
+                                                <input type="text" name="h_t" placeholder="between 0 and 14">
+                                                <button <c:out value="id=${tempAct.highThresholdPHButtonID}"/>>SET</button>
+                                            </label>
+                                            <label>
+                                                NH3 low threshold:
+                                                <input type="text" name="l_t" placeholder="(mg/L)">
+                                                <button <c:out value="id=${tempAct.lowThresholdNH3ButtonID}"/>>SET</button>
+                                            </label>
+                                            <label>
+                                                NH3 high threshold:
+                                                <input type="text" name="h_t" placeholder="(mg/L))">
+                                                <button <c:out value="id=${tempAct.highThresholdNH3ButtonID}"/>>SET</button>
+                                            </label>
+                                        </div>
                                     </c:if>
                                 </div>
                             </c:forEach>

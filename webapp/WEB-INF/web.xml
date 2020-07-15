@@ -58,6 +58,15 @@
         <url-pattern>/tank</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>thresholdservlet</servlet-name>
+        <servlet-class>com.aquarium.web.ThresholdServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>thresholdservlet</servlet-name>
+        <url-pattern>/threshold</url-pattern>
+    </servlet-mapping>
+
     <listener>
         <listener-class>
             com.aquarium.web.CoapLauncher

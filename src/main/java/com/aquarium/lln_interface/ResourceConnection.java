@@ -23,12 +23,16 @@ public class ResourceConnection {
             req.getOptions().addUriQuery(param);
         }
         CoapResponse resp = client.advanced(req);
+        if(!resp.isSuccess())
+            return null;
         return resp.getResponseText();
     }
 
 
     public String sendPostRequest(String jsonString) {
         CoapResponse resp = client.post(jsonString, MediaTypeRegistry.APPLICATION_JSON);
+        if(!resp.isSuccess())
+            return null;
         return resp.getResponseText();
     }
 
@@ -37,6 +41,8 @@ public class ResourceConnection {
         req.getOptions().setAccept(MediaTypeRegistry.APPLICATION_JSON);
         req.getOptions().addUriQuery(param);
         CoapResponse resp = client.advanced(req);
+        if(!resp.isSuccess())
+            return null;
         return resp.getResponseText();
     }
 }

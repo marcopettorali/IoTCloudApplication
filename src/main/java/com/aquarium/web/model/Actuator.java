@@ -54,6 +54,10 @@ public class Actuator {
         return classDescriptor;
     }
 
+    public String getThresholdID() {
+        return "th" + this.identifier;
+    }
+
     public List<Double> getLastValues() {
         return lastValues;
     }
@@ -62,6 +66,34 @@ public class Actuator {
         if(lastValues.size() != 0)
             return lastValues.get(lastValues.size() - 1);
         return Double.MAX_VALUE;
+    }
+
+    public String getLowThresholdButtonID() {
+        return "th_low_" + identifier;
+    }
+
+    public String getHighThresholdButtonID() {
+        return "th_high_" + identifier;
+    }
+
+    public String getLowThresholdPHButtonID() {
+        return "th_low_ph_" + identifier;
+    }
+
+    public String getHighThresholdPHButtonID() {
+        return "th_high_ph_" + identifier;
+    }
+
+    public String getLowThresholdNH3ButtonID() {
+        return "th_low_nh3_" + identifier;
+    }
+
+    public String getHighThresholdNH3ButtonID() {
+        return "th_high_nh3_" + identifier;
+    }
+
+    public String getToggleID() {
+        return "toggle_" + identifier;
     }
 
     public static Actuator.ActuatorDescriptor mapType(String type) {
