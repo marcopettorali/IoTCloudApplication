@@ -69,7 +69,7 @@ public class Sensor {
 
     public static SensorDescriptor mapType(String type) {
         switch (type) {
-            case "light":
+            case "luminosity":
                 return SensorDescriptor.LIGHT_INTENSITY;
             case "oxygen":
                 return SensorDescriptor.OXYGEN;

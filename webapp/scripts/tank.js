@@ -21,15 +21,7 @@ function getPlotButtons() {
         if(actuatorContainers[i].id === "") {
             var button = actuatorContainers[i].getElementsByTagName("button")[0];
             if(button !== undefined) {
-                button.deviceID = actuatorContainers[i].id;
-                if (button.deviceID.includes("ph")) {
-                    var nh = getButtonBySubstr("nh3");
-                    button.linkedID = nh.deviceID;
-                }
-                if (button.deviceID.includes("nh3")) {
-                    var ph = getButtonBySubstr("ph");
-                    button.linkedID = ph.deviceID;
-                }
+                button.deviceID = actuatorContainers[i].parentElement.getElementsByTagName("div")[1].id;
                 result.push(button);
             }
         }
@@ -37,15 +29,6 @@ function getPlotButtons() {
     return result;
 }
 
-function getButtonBySubstr(s) {
-    var actuatorContainers = document.getElementsByTagName("div");
-    for(var cont in actuatorContainers) {
-        if (cont.id.includes(s)) {
-            return actuatorContainers[i].getElementsByTagName("button")[0];
-        }
-    }
-    return null;
-}
 
 function getToggle(actuatorID) {
     const actuatorDiv = document.getElementById(actuatorID);
@@ -64,10 +47,9 @@ function handleToggle(evt) {
     xhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
             let resp = JSON.parse(this.responseText);
-
             let toggle = getToggle(resp.id);
             if(toggle != null) {
-                toggle.checked = resp.response === "1";
+                toggle.checked = resp.response === "ON";
             }
         }
     };
@@ -78,7 +60,6 @@ function handleToggle(evt) {
 
 function handlePlot(evt) {
     var title;
-    alert("Plot received!");
     const id = encodeURIComponent(evt.currentTarget.deviceID);
     var post_par = "id="+id; //+"&value="+value; value is for future improvements
 
@@ -86,18 +67,20 @@ function handlePlot(evt) {
     var metric;
     var type;
     if(splitted_id.length < 4) {
+        alert("wrong format id: " + id);
         return;
     }
-    metric = splitted_id[1] === "a" ? "Actuator" : "Sensor";
-    type = splitted_id[2];
+    type = splitted_id[2] === "a" ? "Actuator" : "Sensor";
+    metric = splitted_id[1];
 
     if(metric !== "ph" && metric !== "nh3") {
-        title = metric + " for " + type + ": last 2 hours";
+        title = type + " for " + metric + ": last 2 hours";
     }
     else {
         title = "Sensors for Ph and NH3: last 2 hours";
-        post_par += "&id2=" + evt.currentTarget.linkedID;
     }
+
+    alert("Plot received! post params: " + post_par);
 
     const xhttp = new XMLHttpRequest();
     xhttp.metric = metric;
@@ -107,7 +90,8 @@ function handlePlot(evt) {
             let resp = JSON.parse(this.responseText);
 
             if (resp.outcome === "good") {
-                var values = resp.values;
+                var values = JSON.parse(resp.values);
+                alert(values);
                 if(this.metric === "ph") {
                     var valuesNH3 = resp.values_linked;
                     plotPH_NH3(title, values, valuesNH3, this.divID);
@@ -128,7 +112,7 @@ function handlePlot(evt) {
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(post_par);
 
-
+    evt.currentTarget.disabled = true;
 }
 
 

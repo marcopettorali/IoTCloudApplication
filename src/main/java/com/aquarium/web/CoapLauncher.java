@@ -29,8 +29,8 @@ public class CoapLauncher implements ServletContextListener {
         CoapServer server = new CoapServer();
         server.add(new DevicesResource());
         //server.add(new CoAPResourceExample("hello"));
-        server.add(new ObservableResource("obs"));
-        populateFakeDevices();
+        //server.add(new ObservableResource("obs"));
+        //populateFakeDevices();
         coapServer = server;
         System.out.println("Rooms available: " + RegisteredDevices.countRooms());
         server.start();
@@ -42,19 +42,19 @@ public class CoapLauncher implements ServletContextListener {
             RegisteredDevices.insert(new Sensor(InetAddress.getByName("localhost"), 3, "sensor", "nh3", 1));
             RegisteredDevices.insert(new Sensor(InetAddress.getByName("localhost"), 1, "sensor", "oxygen", 1));
             RegisteredDevices.insert(new Actuator(InetAddress.getByName("localhost"), 1, "actuator", "oxygen", 1));
-            RegisteredDevices.insert(new Sensor(InetAddress.getByName("localhost"), 3, "sensor", "light", 1));
-            RegisteredDevices.insert(new Actuator(InetAddress.getByName("localhost"), 3, "actuator", "light", 1));
+            RegisteredDevices.insert(new Sensor(InetAddress.getByName("localhost"), 3, "sensor", "luminosity", 1));
+            RegisteredDevices.insert(new Actuator(InetAddress.getByName("localhost"), 3, "actuator", "luminosity", 1));
             RegisteredDevices.insert(new Actuator(InetAddress.getByName("localhost"), 3, "actuator", "ph", 1));
-            RegisteredDevices.insert(new Sensor(InetAddress.getByName("localhost"), 1, "sensor", "light", 1));
-            RegisteredDevices.insert(new Actuator(InetAddress.getByName("localhost"), 1, "actuator", "light", 2));
+            RegisteredDevices.insert(new Sensor(InetAddress.getByName("localhost"), 1, "sensor", "luminosity", 1));
+            RegisteredDevices.insert(new Actuator(InetAddress.getByName("localhost"), 1, "actuator", "luminosity", 2));
             RegisteredDevices.insert(new Sensor(InetAddress.getByName("localhost"), 2, "sensor", "temperature", 1));
             RegisteredDevices.insert(new Actuator(InetAddress.getByName("localhost"), 2, "actuator", "temperature", 1));
             RegisteredDevices.insert(new Sensor(InetAddress.getByName("localhost"), 3, "sensor", "oxygen", 1));
             RegisteredDevices.insert(new Actuator(InetAddress.getByName("localhost"), 3, "actuator", "oxygen", 1));
             RegisteredDevices.insert(new Sensor(InetAddress.getByName("localhost"), 3, "sensor", "temperature", 1));
             RegisteredDevices.insert(new Actuator(InetAddress.getByName("localhost"), 3, "actuator", "temperature", 1));
-            RegisteredDevices.insert(new Sensor(InetAddress.getByName("localhost"), 4, "sensor", "light", 1));
-            RegisteredDevices.insert(new Actuator(InetAddress.getByName("localhost"), 4, "actuator", "light", 1));
+            RegisteredDevices.insert(new Sensor(InetAddress.getByName("localhost"), 4, "sensor", "luminosity", 1));
+            RegisteredDevices.insert(new Actuator(InetAddress.getByName("localhost"), 4, "actuator", "luminosity", 1));
         } catch (Exception e) {
             e.printStackTrace();
         }

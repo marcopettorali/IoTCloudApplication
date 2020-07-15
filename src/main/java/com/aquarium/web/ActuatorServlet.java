@@ -56,14 +56,15 @@ public class ActuatorServlet extends HttpServlet{
         }
         if(response == null) {
             System.err.println("Could not receive response from the device");
-            RequestDispatcher view = req.getRequestDispatcher("index.html");
-            view.forward(req, resp);
+            resp.sendError(resp.SC_INTERNAL_SERVER_ERROR);
             return;
         }
 
+        String outcome = val == 1 ? "ON" : "OFF";
+
         HashMap<String, String> outParams = new HashMap<>();
         outParams.put("id", actuatorID);
-        outParams.put("response", response);
+        outParams.put("response", outcome);
         JSONObject json = new JSONObject(outParams);
 
 

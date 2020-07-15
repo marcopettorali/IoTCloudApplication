@@ -66,7 +66,7 @@ public class Actuator {
 
     public static Actuator.ActuatorDescriptor mapType(String type) {
         switch (type) {
-            case "light":
+            case "luminosity":
                 return ActuatorDescriptor.LIGHT;
             case "oxygen":
                 return ActuatorDescriptor.OXYGENATOR;

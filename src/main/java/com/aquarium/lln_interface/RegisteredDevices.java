@@ -5,7 +5,7 @@ import java.util.*;
 public class RegisteredDevices {
 
     //volatile since this variable is accessed from both Coap and Http servers
-    private static volatile List<Device> registeredDevices;
+    private static final List<Device> registeredDevices;
 
     static {
         registeredDevices = new ArrayList<>();

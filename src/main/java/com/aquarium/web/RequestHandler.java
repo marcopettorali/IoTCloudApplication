@@ -20,19 +20,19 @@ public class RequestHandler {
             return null;
         }
 
-        room_id = parseInt(parse[0], -1);
+        room_id = parseInt(parse[0], -2);
         metric = parse[1];
-        type = "actuator";
-        deviceID = parseInt(parse[3], -1);
+        type = parse[2].equals("a") ? "actuator" : "sensor";
+        deviceID = parseInt(parse[3], -2);
 
-        if(room_id == -1 || deviceID == -1) {
+        if(room_id == -2 || deviceID == -2) {
             System.err.println("Error: Wrong room or device ID");
             return null;
         }
 
         List<Device> tmpList = RegisteredDevices.query(null, room_id, type, metric, deviceID);
         if (tmpList.size() != 1) { //
-            System.err.println("Error: device could not be retrieved or many actuators with same ID");
+            System.err.println("Error: "+ tmpList.size() +" devices with this ID");
             return null;
         }
 

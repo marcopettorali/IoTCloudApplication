@@ -48,12 +48,13 @@
         <c:set value="${false}" var="ph_nh3_done"/> <!-- used to get together PH and NH3 sensors -->
 
         <c:forEach var="sensor" items="${tank.sensors}">
-            <% Sensor current_s = (Sensor)request.getAttribute("sensor"); %>
-            <li <c:out value="id=${sensor.liID}"/>>
-                <c:set value='${sensor.actuators}' var="acts"/>
-                <c:out value="${sensor.classDescriptor.name()}"/>
-                <c:choose>
-                    <c:when test="${sensor.classDescriptor.name() eq 'OXYGEN'}">
+            <c:set value="${sensor}" scope="request" var="current_s"/>
+            <% Sensor current_s = (Sensor)request.getAttribute("current_s"); %>
+            <c:set value='${sensor.actuators}' var="acts"/>
+            <c:choose>
+                <c:when test="${sensor.classDescriptor.name() eq 'OXYGEN'}">
+                    <li <c:out value="id=${sensor.liID}"/>>
+                        <c:out value="${sensor.classDescriptor.name()}"/>
                         <div>
                             <h4>Oxygen sensor</h4>
                             <p>
@@ -88,14 +89,19 @@
                                 </c:if>
                             </div>
                         </c:forEach>
-                    </c:when>
+                    </li>
+                </c:when>
 
-                    <c:when test="${sensor.classDescriptor.name() eq 'TEMPERATURE'}">
+                <c:when test="${sensor.classDescriptor.name() eq 'TEMPERATURE'}">
+                    <li <c:out value="id=${sensor.liID}"/>>
+                        <c:out value="${sensor.classDescriptor.name()}"/>
                         <div>
                             <h4>Thermometer</h4>
                             <p>Temperature: <c:out value="${sensor.currentValue}"/>°C</p>
                             <p>Status: <c:out value="${sensor.status}"/></p>
                             <button type="button">Plot</button>
+                        </div>
+                        <div <c:out value="id=${sensor.identifier}"/> hidden>
                         </div>
                         <c:forEach var="tempAct" items="${acts}">
                             <div <c:out value="id=${tempAct.identifier}"/>>
@@ -122,14 +128,19 @@
                                 </c:if>
                             </div>
                         </c:forEach>
-                    </c:when>
+                    </li>
+                </c:when>
 
-                    <c:when test="${sensor.classDescriptor.name() eq 'LIGHT_INTENSITY'}">
+                <c:when test="${sensor.classDescriptor.name() eq 'LIGHT_INTENSITY'}">
+                    <li <c:out value="id=${sensor.liID}"/>>
+                        <c:out value="${sensor.classDescriptor.name()}"/>
                         <div>
                             <h4>Light intensity</h4>
                             <p>Light strength: <c:out value="${sensor.currentValue}"/> lux</p>
                             <p>Status: <c:out value="${sensor.status}"/></p>
                             <button type="button">Plot</button>
+                        </div>
+                        <div <c:out value="id=${sensor.identifier}"/> hidden>
                         </div>
                         <c:forEach var="tempAct" items="${acts}">
                             <div <c:out value="id=${tempAct.identifier}"/>>
@@ -152,10 +163,13 @@
                                 </c:if>
                             </div>
                         </c:forEach>
-                    </c:when>
+                    </li>
+                </c:when>
 
-                    <c:when test="${(sensor.classDescriptor.name() eq 'PH') or (sensor.classDescriptor.name() eq 'NH3')}">
-                        <c:if test="${ph_nh3_done eq false}">
+                <c:when test="${(sensor.classDescriptor.name() eq 'PH') or (sensor.classDescriptor.name() eq 'NH3')}">
+                    <c:if test="${ph_nh3_done eq false}">
+                        <li <c:out value="id=${sensor.liID}"/>>
+                            <c:out value="PH/NH3"/>
                             <c:set value="<%=current_s.getLinkedSensor(current_t.getSensors())%>" var="linked"/>
                             <div>
                                 <c:choose>
@@ -176,6 +190,8 @@
                                         <button type="button">Plot</button>
                                     </c:otherwise>
                                 </c:choose>
+                            </div>
+                            <div <c:out value="id=${sensor.identifier}"/> hidden>
                             </div>
                             <c:forEach var="tempAct" items="${acts}">
                                 <div <c:out value="id=${tempAct.identifier}"/>>
@@ -198,12 +214,11 @@
                                     </c:if>
                                 </div>
                             </c:forEach>
-                        </c:if>
-                        <c:set value="${true}" var="ph_nh3_done"/>
-                    </c:when>
-
-                </c:choose>
-            </li>
+                        </li>
+                    </c:if>
+                    <c:set value="${true}" var="ph_nh3_done"/>
+                </c:when>
+            </c:choose>
         </c:forEach>
     </ul>
 
