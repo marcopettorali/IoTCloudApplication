@@ -125,8 +125,6 @@ function handlePlot(evt) {
         title = "Sensors for Ph and NH3: last 2 hours";
     }
 
-    alert("Plot received! post params: " + post_par);
-
     const xhttp = new XMLHttpRequest();
     xhttp.metric = metric;
     xhttp.divID = id;

@@ -37,7 +37,7 @@ public class ResourceConnection {
     }
 
     public String sendPutRequest(String param) {
-        Request req = new Request(CoAP.Code.GET);
+        Request req = new Request(CoAP.Code.PUT);
         req.getOptions().setAccept(MediaTypeRegistry.APPLICATION_JSON);
         req.getOptions().addUriQuery(param);
         CoapResponse resp = client.advanced(req);
