@@ -57,7 +57,7 @@ function getToggle(actuatorID) {
 function handleToggle(evt) {
     evt.preventDefault();
     const id = encodeURIComponent(evt.currentTarget.actuatorID);
-    const value = evt.currentTarget.checked === true ?  "OFF" : "ON";
+    const value = evt.currentTarget.checked === true ?  "ON" : "OFF";
     const post_par = "id="+id + "&value="+ value;
     const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -65,7 +65,7 @@ function handleToggle(evt) {
             let resp = JSON.parse(this.responseText);
             let toggle = getToggle(resp.id);
             if(toggle != null) {
-                toggle.checked = resp.response === "ON";
+                toggle.checked = (resp.response === "ON");
             }
         }
     };
@@ -134,7 +134,6 @@ function handlePlot(evt) {
 
             if (resp.outcome === "good") {
                 var values = JSON.parse(resp.values);
-                alert(values);
                 if(this.metric === "ph") {
                     var valuesNH3 = resp.values_linked;
                     plotPH_NH3(title, values, valuesNH3, this.divID);
