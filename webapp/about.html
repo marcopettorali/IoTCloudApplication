@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="./assets/logo/logo_small_icon_only_no_background.png">
+    <link rel="stylesheet" href="css/navigationBar.css">
+    <link rel="stylesheet" href="css/logo.css">
+    <title>about Aquarium</title>
+</head>
+<body>
+    <img id="logo" src="./assets/logo/logo.svg" alt="THE AQUARIUM">
+    <h2 id="introTitle">Monitoring and control panel</h2>
+    <nav id="navigationBar">
+        <ul>
+            <li><a href="./home">Home</a></li>
+            <li><a href="./tanklist">Tanks</a></li>
+            <li><a class="active" href="./about.html">About</a></li>
+        </ul>
+    </nav>
+    <header>
+        <h3>
+            About The Aquarium Control Panel website
+        </h3>
+    </header>
+    <section id="about">
+        <p>
+            The Aquarium has a smart, autonomous environment management system. This control panel allows platform
+            managers to access this environment, monitor sensors data and status, manually trigger actuators and configure
+            thresholds of autonomous activation for each actuator. Indeed, each actuator is able to communicate directly with
+            its related sensor to know when an activation is necessary, without direct human intervention.
+            This web page offers:
+            <ul>
+                <li>
+                    A <a href="./home">Home</a> page, where the user can see some overall information about sensors and tanks
+                    in the network. A very useful feature of this page is that it shows a
+                    <a href="./home#warnings">warnings</a> table, where tanks with defective devices are highlighted.
+                </li>
+                <li>
+                    A <a href="./tanklist">Tanks</a> page, where the user can see an exhaustive list of all the tanks
+                    in The Aquarium. The user can then click on a tank and switch to that tank menu.
+                </li>
+                <li>
+                    A specific management page for each tank, accessible through the tanks menu. This page is the core
+                    of this web site: it shows all devices installed in the chosen tank. For each sensor device, it lets
+                    users know the last sample value and plot all samples in the last two hours in a graph.
+                    For each actuator device, it lets users trigger its activation/deactivation and choose new thresholds
+                    for its autonomous activation.
+                </li>>
+            </ul>
+        </p>
+    </section>
+
+</body>
+</html>

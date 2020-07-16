@@ -108,6 +108,9 @@ function handlePlot(evt) {
     const id = encodeURIComponent(evt.currentTarget.deviceID);
     var post_par = "id="+id; //+"&value="+value; value is for future improvements
 
+    //empty any previous plot
+    document.getElementById(id).innerHTML = "";
+
     var splitted_id = id.split("_");
     var metric;
     var type;
@@ -153,8 +156,7 @@ function handlePlot(evt) {
     xhttp.open("POST", "./plot", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(post_par);
-
-    evt.currentTarget.disabled = true;
+    evt.currentTarget.innerText = "Reload plot";
 }
 
 
