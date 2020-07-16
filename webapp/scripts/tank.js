@@ -32,15 +32,26 @@ function getThresholdButtons() {
 }
 
 function getPlotButtons() {
-    var actuatorContainers = document.getElementsByTagName("div");
+    var buttons = document.getElementsByTagName("button");
     var result = [];
-    for(var i = 0; i < actuatorContainers.length; ++i) {
-        if(actuatorContainers[i].id === "") {
-            var button = actuatorContainers[i].getElementsByTagName("button")[0];
-            if(button !== undefined) {
-                button.deviceID = actuatorContainers[i].parentElement.getElementsByTagName("div")[1].id;
-                result.push(button);
-            }
+    for(var i = 0; i < buttons.length; ++i) {
+        if(buttons[i].id.startsWith("plot_")) {
+            const button = buttons[i];
+            button.deviceID = button.id.substr(5); //5 == strlen("plot_")
+            result.push(button);
+        }
+    }
+    return result;
+}
+
+function getSampleButtons() {
+    var buttons = document.getElementsByTagName("button");
+    var result = [];
+    for(var i = 0; i < buttons.length; ++i) {
+        if(buttons[i].id.startsWith("sample_")) {
+            const button = buttons[i];
+            button.deviceID = button.id.substr(7); //7 == strlen("sample_")
+            result.push(button);
         }
     }
     return result;
@@ -52,6 +63,44 @@ function getToggle(actuatorID) {
     if(actuatorDiv == null)
         return null;
     return actuatorDiv.getElementsByTagName("input")[0];
+}
+
+function handleSample(evt) {
+    const id = encodeURIComponent(evt.currentTarget.deviceID);
+    var post_par = "id="+id;
+
+    var button = evt.currentTarget;
+    var value = button.parentElement.getElementsByTagName("input")[0].value;
+    value = encodeURIComponent(value);
+    var valueInt = parseInt(value);
+    if(isNaN(valueInt) || valueInt > 3600 || valueInt < 10) {
+        alert("Insert an integer value between 10 and 3600");
+        return;
+    }
+
+    post_par += ("&value=" + value);
+
+    var splitted_id = id.split("_");
+    if(splitted_id.length < 4) {
+        alert("wrong format id: " + id);
+        return;
+    }
+
+    const xhttp = new XMLHttpRequest();
+    xhttp.divID = id;
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            let resp = JSON.parse(this.responseText);
+
+            if (resp.outcome === "good") {
+                alert("The new sampling rate has been set");
+            }
+
+        }
+    };
+    xhttp.open("POST", "./sample", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(post_par);
 }
 
 function handleToggle(evt) {
@@ -81,6 +130,12 @@ function handleThreshold(evt) {
 
     var value = button.parentElement.getElementsByTagName("input")[0].value;
     value = encodeURIComponent(value);
+    var valueInt = parseFloat(value);
+    if(isNaN(valueInt) || valueInt < 0) {
+        alert("Insert a valid number");
+        return;
+    }
+
     const threshold = encodeURIComponent(button.threshold);
 
 
@@ -138,11 +193,11 @@ function handlePlot(evt) {
             if (resp.outcome === "good") {
                 var values = JSON.parse(resp.values);
                 if(this.metric === "ph") {
-                    var valuesNH3 = resp.values_linked;
+                    var valuesNH3 = JSON.parse(resp.values_linked);
                     plotPH_NH3(title, values, valuesNH3, this.divID);
                 }
                 else if(this.metric === "nh3") {
-                    var valuesPH = resp.values_linked;
+                    var valuesPH = JSON.parse(resp.values_linked);
                     plotPH_NH3(title, valuesPH, values, this.divID);
                 }
                 else {
@@ -181,10 +236,18 @@ function setThresholdListeners() {
     }
 }
 
+function setSampleListeners() {
+    const buttons = getSampleButtons();
+    for(var i = 0; i<buttons.length; ++i) {
+        buttons[i].addEventListener("click", handleSample);
+    }
+}
+
 function setListeners() {
     setToggleListeners();
     setPlotListeners();
     setThresholdListeners();
+    setSampleListeners();
 }
 
 

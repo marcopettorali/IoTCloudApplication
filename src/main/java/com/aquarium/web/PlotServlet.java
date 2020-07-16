@@ -40,6 +40,7 @@ public class PlotServlet extends HttpServlet{
         List<Double> lastValues;
         boolean isPH = false;
         boolean isNH3 = false;
+        String metric = "";
         if(dev instanceof com.aquarium.lln_interface.Sensor) {
             com.aquarium.lln_interface.Sensor t_dev = (com.aquarium.lln_interface.Sensor) dev;
             lastValues = t_dev.getDataSince(new Date().getTime() - DATA_AGE);
@@ -47,6 +48,7 @@ public class PlotServlet extends HttpServlet{
                 isPH = true;
             if(t_dev.getMetric().equals("nh3"))
                 isNH3 = true;
+            metric = t_dev.getMetric();
         }
         else {
             lastValues = ((com.aquarium.lln_interface.Actuator) dev).getDataSince(new Date().getTime() - DATA_AGE);
@@ -68,20 +70,23 @@ public class PlotServlet extends HttpServlet{
                 List<Double> lastValues2 = t_dev2.getDataSince(new Date().getTime() - DATA_AGE);
                 jsArray = new JSONArray(lastValues2);
                 outParams.put("values_linked", jsArray.toString());
+                outParams.put("metric", metric);
             }
         }
-        /*
 
+
+        /*
         double[] lastValues = {0.0, 2.1, 5.4, 7.1, 10.0, 23.4};
         double[] lastValues2 = {8.0, 6.1, 8.4, 1.1, 20.0, 13.4};
         JSONArray jsArray = new JSONArray(lastValues);
         JSONArray jsArray2 = new JSONArray(lastValues2);
         HashMap<String, String> outParams = new HashMap<>();
         outParams.put("values", jsArray.toString());
-        outParams.put("values2", jsArray2.toString());
+        outParams.put("values_linked", jsArray2.toString());
         outParams.put("outcome", "good");
+        outParams.put("metric", "nh3");
+        */
 
-         */
 
         JSONObject json = new JSONObject(outParams);
 

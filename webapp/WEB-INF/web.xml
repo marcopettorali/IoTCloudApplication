@@ -32,15 +32,6 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>settingsservlet</servlet-name>
-        <servlet-class>com.aquarium.web.SettingsServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>settingsservlet</servlet-name>
-        <url-pattern>/settings</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>tanklistservlet</servlet-name>
         <servlet-class>com.aquarium.web.TankListServlet</servlet-class>
     </servlet>
@@ -65,6 +56,15 @@
     <servlet-mapping>
         <servlet-name>thresholdservlet</servlet-name>
         <url-pattern>/threshold</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>sampleservlet</servlet-name>
+        <servlet-class>com.aquarium.web.SampleServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>sampleservlet</servlet-name>
+        <url-pattern>/sample</url-pattern>
     </servlet-mapping>
 
     <listener>

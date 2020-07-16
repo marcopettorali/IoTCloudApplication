@@ -89,6 +89,10 @@ public class Sensor {
         return identifier;
     }
 
+    public String getPlotButtonID() { return "plot_" + identifier; }
+
+    public String getSampleButtonID() { return "sample_" + identifier; }
+
     public String getLiID() {return "li_" + identifier;}
 
     public String getStatus() {

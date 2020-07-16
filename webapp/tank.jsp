@@ -61,7 +61,12 @@
                                 <c:out value="${sensor.currentValue}"/>
                             </p>
                             <p>Status: <c:out value="${sensor.status}"/></p>
-                            <button type="button">Plot</button>
+                            <label>
+                                Here you can set resource sampling period in seconds (default 60s)
+                                <input type="text" name="sample" placeholder="sampling period (s)">
+                                <button <c:out value="id=${sensor.sampleButtonID}"/>>SET</button>
+                            </label>
+                            <button <c:out value="id=${sensor.plotButtonID}" /> type="button">Plot</button>
                         </div>
                         <div <c:out value="id=${sensor.identifier}"/> hidden>
                         </div>
@@ -77,10 +82,10 @@
                                     <c:choose>
                                         <c:when test="${tempAct.currentValue eq 0}">
                                             <%-- OFF --%>
-                                            <input <c:out value="id=${tempAct.toggleID}"/> type="checkbox" class="O2Off">
+                                            <input <c:out value="id=${tempAct.toggleID}"/> type="checkbox" class="toggle">
                                         </c:when>
                                         <c:otherwise> <%-- ON --%>
-                                            <input <c:out value="id=${tempAct.toggleID}"/> class="O2On" type="checkbox" checked>
+                                            <input <c:out value="id=${tempAct.toggleID}"/> class="toggle" type="checkbox" checked>
                                         </c:otherwise>
                                     </c:choose>
                                     </label>
@@ -112,7 +117,12 @@
                             <h4>Thermometer</h4>
                             <p>Temperature: <c:out value="${sensor.currentValue}"/>°C</p>
                             <p>Status: <c:out value="${sensor.status}"/></p>
-                            <button type="button">Plot</button>
+                            <label>
+                                Here you can set resource sampling period in seconds (default 60s)
+                                <input type="text" name="sample" placeholder="sampling period (s)">
+                                <button <c:out value="id=${sensor.sampleButtonID}"/>>SET</button>
+                            </label>
+                            <button <c:out value="id=${sensor.plotButtonID}" /> type="button">Plot</button>
                         </div>
                         <div <c:out value="id=${sensor.identifier}"/> hidden>
                         </div>
@@ -131,10 +141,10 @@
                                     <label> Toggle:
                                         <c:choose>
                                             <c:when test="${tempAct.currentValue eq 0}"> <%-- OFF --%>
-                                                <input <c:out value="id=${tempAct.toggleID}"/> type="checkbox" class="ThermoOff">
+                                                <input <c:out value="id=${tempAct.toggleID}"/> type="checkbox" class="toggle">
                                             </c:when>
                                             <c:otherwise> <%-- ON --%>
-                                                <input <c:out value="id=${tempAct.toggleID}"/> class="ThermoOn" type="checkbox" checked>
+                                                <input <c:out value="id=${tempAct.toggleID}"/> class="toggle" type="checkbox" checked>
                                             </c:otherwise>
                                         </c:choose>
                                     </label>
@@ -165,7 +175,12 @@
                             <h4>Light intensity</h4>
                             <p>Light strength: <c:out value="${sensor.currentValue}"/> lux</p>
                             <p>Status: <c:out value="${sensor.status}"/></p>
-                            <button type="button">Plot</button>
+                            <label>
+                                Here you can set resource sampling period in seconds (default 60s)
+                                <input type="text" name="sample" placeholder="sampling period (s)">
+                                <button <c:out value="id=${sensor.sampleButtonID}"/>>SET</button>
+                            </label>
+                            <button <c:out value="id=${sensor.plotButtonID}" /> type="button">Plot</button>
                         </div>
                         <div <c:out value="id=${sensor.identifier}"/> hidden>
                         </div>
@@ -180,10 +195,10 @@
                                     <label> Toggle:
                                         <c:choose>
                                             <c:when test="${tempAct.currentValue eq 0}"> <%-- OFF --%>
-                                                <input <c:out value="id=${tempAct.toggleID}"/> type="checkbox" class="lightOff">
+                                                <input <c:out value="id=${tempAct.toggleID}"/> type="checkbox" class="toggle">
                                             </c:when>
                                             <c:otherwise> <%-- ON --%>
-                                                <input <c:out value="id=${tempAct.toggleID}"/> class="lightOn" type="checkbox" checked>
+                                                <input <c:out value="id=${tempAct.toggleID}"/> class="toggle" type="checkbox" checked>
                                             </c:otherwise>
                                         </c:choose>
                                     </label>
@@ -222,7 +237,12 @@
                                         <p>NH4+/NH3: <c:out value="${linked.currentValue} mg/L"/></p>
                                         <p>Ph sensor status: <c:out value="${sensor.status}"/></p>
                                         <p>NH4+/NH3 sensor status: <c:out value="${linked.status}"/></p>
-                                        <button type="button">Plot</button>
+                                        <label>
+                                            Here you can set PH and NH3 sampling period in seconds (default 60s)
+                                            <input type="text" name="sample" placeholder="sampling period (s)">
+                                            <button <c:out value="id=${sensor.sampleButtonID}"/>>SET</button>
+                                        </label>
+                                        <button <c:out value="id=${sensor.plotButtonID}" /> type="button">Plot</button>
                                     </c:when>
                                     <c:otherwise>
                                         <h4>Acidity and Ammonium</h4>
@@ -230,7 +250,12 @@
                                         <p>NH4+/NH3: <c:out value="${sensor.currentValue} mg/L"/></p>
                                         <p>Ph sensor status: <c:out value="${linked.status}"/></p>
                                         <p>NH4+/NH3 sensor status: <c:out value="${sensor.status}"/></p>
-                                        <button type="button">Plot</button>
+                                        <label>
+                                            Here you can set PH and NH3 sampling period in seconds (default 60s)
+                                            <input type="text" name="sample" placeholder="sampling period (s)">
+                                            <button <c:out value="id=${sensor.sampleButtonID}"/>>SET</button>
+                                        </label>
+                                        <button <c:out value="id=${sensor.plotButtonID}" /> type="button">Plot</button>
                                     </c:otherwise>
                                 </c:choose>
                             </div>
@@ -247,10 +272,10 @@
                                         <label> Toggle:
                                             <c:choose>
                                                 <c:when test="${tempAct.currentValue eq 0}"> <%-- OFF --%>
-                                                    <input <c:out value="id=${tempAct.toggleID}"/> type="checkbox" class="valveOff">
+                                                    <input <c:out value="id=${tempAct.toggleID}"/> type="checkbox" class="toggle">
                                                 </c:when>
                                                 <c:otherwise> <%-- ON --%>
-                                                    <input <c:out value="id=${tempAct.toggleID}"/> class="valveOn" type="checkbox" checked>
+                                                    <input <c:out value="id=${tempAct.toggleID}"/> class="toggle" type="checkbox" checked>
                                                 </c:otherwise>
                                             </c:choose>
                                         </label>
