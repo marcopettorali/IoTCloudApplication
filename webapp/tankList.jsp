@@ -14,10 +14,12 @@
     <link rel="icon" href="./assets/logo/logo_small_icon_only_no_background.png">
     <link rel="stylesheet" href="css/navigationBar.css">
     <link rel="stylesheet" href="css/logo.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/tanklist.css">
     <title>Aquarium tank list</title>
 </head>
 <body>
-    <img id="logo" src="./assets/logo/logo.svg" alt="THE AQUARIUM">
+    <img id="logo" src="./assets/logo/logo_white_large.png" alt="THE AQUARIUM">
     <h2 id="introTitle">Monitoring and control panel</h2>
     <nav id="navigationBar">
         <ul>
@@ -29,11 +31,10 @@
 
     <header>
         <h3>
-            Here is the list of all the tanks in the system. Click on one of them to handle all devices
-            in that tank.
+            <img id="titleLogo" src="./assets/logo/logo_white_large.png" alt="THE AQUARIUM"> Tank list
         </h3>
     </header>
-    <ul>
+    <ul id="tanklistUL">
         <c:set value='<%=(ArrayList<Tank>) request.getAttribute("tanks")%>' var="tanks"/>
         <c:forEach var="tank" items="${tanks}">
                 <li>

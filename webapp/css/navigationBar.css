@@ -5,22 +5,23 @@
 
 #navigationBar ul {
     list-style-type: none;
+    font-weight: bold;
+    font-size: 22px;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
 }
 
 #navigationBar li {
     float: left;
-    border-right: 1px solid #bbb;
+    border-right: 2px solid white;
 }
 
 
 #navigationBar li:last-child {
     border-right: none;
     float: right;
-    border-left: 1px solid #bbb;
+    border-left: 2px solid white;
 }
 
 #navigationBar li a {
@@ -29,12 +30,14 @@
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    border-radius: 3px;
 }
 
 #navigationBar li a:hover {
-    background-color: #111;
+    background-color: rgba(0,0,0,0.5);
+    font-size: 22px;
 }
 
 .active {
-    background-color: #4CAF50;
+    background-color: rgba(0,0,0,0.2);
 }

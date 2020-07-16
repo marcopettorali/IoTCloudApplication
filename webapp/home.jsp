@@ -12,7 +12,7 @@
     <title>Aquarium Control Panel</title>
 </head>
 <body>
-    <img id="logo" src="./assets/logo/logo.svg" alt="THE AQUARIUM">
+    <img id="logo" src="./assets/logo/logo_white_large.png" alt="THE AQUARIUM">
     <h2 id="introTitle">Monitoring and control panel</h2>
     <nav id="navigationBar">
         <ul>
@@ -25,7 +25,7 @@
     <header>
 
         <h3>
-            Welcome to the Aquarium control center main page
+            Welcome to <img id="titleLogo" src="./assets/logo/logo_white_large.png" alt="THE AQUARIUM"> home page
         </h3>
 
         <p>
@@ -35,15 +35,11 @@
 
     </header>
 
-    <aside>
-        <ul>
-            <li><a href="#overall">Overall status</a></li>
-            <li><a href="#warnings">Warnings</a></li>
-        </ul>
-    </aside>
-
     <main>
         <section id="overall">
+            <h4>
+                Overall status
+            </h4>
             <p>
                 The Aquarium is a smart environment where tanks are constantly monitored to ensure fishes real habitat
                 conditions.
@@ -72,6 +68,9 @@
             </ul>
         </section>
         <section id="warnings">
+            <h4>
+                Warnings
+            </h4>
             <table>
                 <thead>
                     <tr>

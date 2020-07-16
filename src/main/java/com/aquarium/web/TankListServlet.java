@@ -31,7 +31,7 @@ public class TankListServlet extends HttpServlet {
                 }
             }
 
-            if(curr_tank == null) {
+            if (curr_tank == null) {
                 curr_tank = new Tank(d.getRoom(), "Tank_" + d.getRoom());
                 tanks.add(curr_tank);
             }

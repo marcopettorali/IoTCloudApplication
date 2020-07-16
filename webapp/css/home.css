@@ -1,29 +1,63 @@
-h3 {
-    background-color: #333;
-    width: 80%;
-    padding-top: 50px;
-    padding-bottom: 50px;
-    border-radius: 6px;
-    color: white;
-    text-align: center;
-    font-size: 27px;
+
+section h4 {
+    font-size: 30px;
     text-transform: uppercase;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 30px;
-    font-family: Stencil Std, fantasy;
+    margin-top: 0;
 }
 
-header p {
-    text-align: center;
+#overall{
     width: 60%;
     margin-left: auto;
     margin-right: auto;
-    font-size: 20px;
+    font-size: 16px;
+    text-align: center;
+    padding: 40px 25px;
+    background-color: rgba(0,0,0,0.6);
+    border-radius: 10px;
+    margin-bottom: 40px;
 }
 
-aside {
-    display: block;
-    background-color: #333;
-    color: white;
+#overall ul {
+    text-align: left;
+}
+
+#overall li {
+    margin-top: 15px;
+}
+
+#warnings {
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 100px;
+}
+
+#warnings h4 {
+    text-align: center;
+}
+
+ #warnings table {
+     width: 100%;
+     background-color: #FFFFFF;
+     border-collapse: collapse;
+     border-width: 2px;
+     border-color: #a89132;
+     border-style: solid;
+     color: #000000;
+     border-radius: 5px;
+ }
+
+#warnings table td, #warnings table th {
+    border-width: 2px;
+    border-color: #a89132;
+    border-style: solid;
+    padding: 5px;
+}
+
+#warnings table thead {
+    background-color: #a89132;
+}
+
+section {
+    margin-top: 40px;
 }
