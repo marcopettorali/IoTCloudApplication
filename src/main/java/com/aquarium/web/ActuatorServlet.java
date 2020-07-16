@@ -27,17 +27,26 @@ public class ActuatorServlet extends HttpServlet{
             return;
         }
 
+
         String value = req.getParameter("value");
         if(value == null) {
             resp.sendError(resp.SC_BAD_REQUEST);
             return;
         }
-        int val = RequestHandler.parseInt(value, -1);
-        if((val != 0 && val != 1)) {
+
+        int val = -1;
+        if(value.equals("ON")) {
+            val = 1;
+        }
+        if(value.equals("OFF")) {
+            val = 0;
+        }
+        if(val == -1) {
             resp.sendError(resp.SC_BAD_REQUEST);
             return;
         }
 
+        System.out.println("Setting the actuator " + actuatorID + " to " + value);
         Device dev = RequestHandler.getOneDevice(actuatorID);
         if(dev == null) {
             RequestDispatcher view = req.getRequestDispatcher("index.html");

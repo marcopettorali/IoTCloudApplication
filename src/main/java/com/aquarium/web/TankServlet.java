@@ -23,8 +23,7 @@ public class TankServlet extends HttpServlet {
         int tankID = RequestHandler.parseInt ( req.getParameter("id"), -1);
         if(tankID == -1) {
             System.out.println("The tank id inserted does not exist.");
-            RequestDispatcher view = req.getRequestDispatcher("index.html");
-            view.forward(req, resp);
+            resp.sendError(resp.SC_BAD_REQUEST);
             return;
         }
 
@@ -33,8 +32,7 @@ public class TankServlet extends HttpServlet {
 
         if(sens.size() == 0) {
             System.err.println("This tank does not contain sensors.");
-            RequestDispatcher view = req.getRequestDispatcher("index.html");
-            view.forward(req, resp);
+            resp.sendError(resp.SC_INTERNAL_SERVER_ERROR);
             return;
         }
 

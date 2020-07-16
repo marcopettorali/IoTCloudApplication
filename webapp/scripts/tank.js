@@ -57,7 +57,7 @@ function getToggle(actuatorID) {
 function handleToggle(evt) {
     evt.preventDefault();
     const id = encodeURIComponent(evt.currentTarget.actuatorID);
-    const value = evt.currentTarget.checked === true ?  "OFF" : "ON";
+    const value = evt.currentTarget.checked === true ?  "ON" : "OFF";
     const post_par = "id="+id + "&value="+ value;
     const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -65,7 +65,7 @@ function handleToggle(evt) {
             let resp = JSON.parse(this.responseText);
             let toggle = getToggle(resp.id);
             if(toggle != null) {
-                toggle.checked = resp.response === "ON";
+                toggle.checked = (resp.response === "ON");
             }
         }
     };
@@ -108,6 +108,9 @@ function handlePlot(evt) {
     const id = encodeURIComponent(evt.currentTarget.deviceID);
     var post_par = "id="+id; //+"&value="+value; value is for future improvements
 
+    //empty any previous plot
+    document.getElementById(id).innerHTML = "";
+
     var splitted_id = id.split("_");
     var metric;
     var type;
@@ -134,7 +137,6 @@ function handlePlot(evt) {
 
             if (resp.outcome === "good") {
                 var values = JSON.parse(resp.values);
-                alert(values);
                 if(this.metric === "ph") {
                     var valuesNH3 = resp.values_linked;
                     plotPH_NH3(title, values, valuesNH3, this.divID);
@@ -154,8 +156,7 @@ function handlePlot(evt) {
     xhttp.open("POST", "./plot", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(post_par);
-
-    evt.currentTarget.disabled = true;
+    evt.currentTarget.innerText = "Reload plot";
 }
 
 

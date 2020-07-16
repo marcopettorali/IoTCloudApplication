@@ -16,8 +16,7 @@
         <ul>
             <li><a class="active" href="./home">Home</a></li>
             <li><a href="./tanklist">Tanks</a></li>
-            <li><a href="./settings">Global settings</a></li>
-            <li><a href="./about">About</a></li>
+            <li><a href="./about.html">About</a></li>
         </ul>
     </nav>
 
