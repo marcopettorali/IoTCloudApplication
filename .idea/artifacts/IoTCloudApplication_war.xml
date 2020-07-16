@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" build-on-make="true" name="IoTCloudApplication:war">
-    <output-path>$PROJECT_DIR$/out/artifacts/IoTCloudApplication_war</output-path>
-    <root id="archive" name="IoTCloudApplication_war.war">
-      <element id="artifact" artifact-name="IoTCloudApplication:war exploded" />
-    </root>
-  </artifact>
-</component>

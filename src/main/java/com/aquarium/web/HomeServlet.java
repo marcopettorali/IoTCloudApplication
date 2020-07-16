@@ -35,9 +35,9 @@ public class HomeServlet extends HttpServlet{
                     warnings.put("Tank " + dev.getRoom(), sen.getState());
                 }
             }else if(dev.getType().equals("actuator")){
-                Actuator sen = (Actuator) dev;
-                if(sen.getState() != null && !sen.getState().equals("WORKING")) {
-                    warnings.put("Tank " + dev.getRoom(), sen.getState());
+                Actuator act = (Actuator) dev;
+                if(act.getState() != null && !act.getState().equals("WORKING")) {
+                    warnings.put("Tank " + dev.getRoom(), act.getState());
                 }
             }
 

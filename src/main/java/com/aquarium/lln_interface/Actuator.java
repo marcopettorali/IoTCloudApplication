@@ -14,40 +14,28 @@ public class Actuator extends Device {
         this.observer = new DoubleObserver(observedResourceAddress, 256, observedResourceAddress);
     }
 
-    public String turnOn() {
-        return resource.sendPutRequest("M=1");
+    public void turnOn() {
+        resource.sendPutRequest("M=1");
     }
 
-    public String turnOff() {
-        return resource.sendPutRequest("M=0");
+    public void turnOff() {
+        resource.sendPutRequest("M=0");
     }
 
-    public String setLowThreshold(double value) {
-        return resource.sendPutRequest("t_l=" + value);
+    public void setLowThreshold(double value) {
+        resource.sendPutRequest("t_l=" + value);
     }
 
-    public String setHighThreshold(double value) {
-        return resource.sendPutRequest("t_h=" + value);
+    public void setHighThreshold(double value) {
+        resource.sendPutRequest("t_h=" + value);
     }
 
-    public String setLowThresholdWithMetric(double value, String metric) {
-        return resource.sendPutRequest("t_l_" + metric + "=" + value);
+    public void setLowThresholdWithMetric(double value, String metric) {
+        resource.sendPutRequest("t_l_" + metric + "=" + value);
     }
 
-    public String setHighThresholdWithMetric(double value, String metric) {
-        return resource.sendPutRequest("t_h_" + metric + "=" + value);
-    }
-
-    public String sendGetRequest(String[] params) {
-        return resource.sendGetRequest(params);
-    }
-
-    public String sendPostRequest(String jsonString) {
-        return resource.sendPostRequest(jsonString);
-    }
-
-    public String sendPutRequest(String jsonString) {
-        return resource.sendPutRequest(jsonString);
+    public void setHighThresholdWithMetric(double value, String metric) {
+        resource.sendPutRequest("t_h_" + metric + "=" + value);
     }
 
     public List<Double> getDataSince(long date) {

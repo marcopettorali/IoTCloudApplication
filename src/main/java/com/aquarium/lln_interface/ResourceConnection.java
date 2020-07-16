@@ -23,26 +23,16 @@ public class ResourceConnection {
             req.getOptions().addUriQuery(param);
         }
         CoapResponse resp = client.advanced(req);
-        if(!resp.isSuccess())
+        if (!resp.isSuccess())
             return null;
         return resp.getResponseText();
     }
 
-
-    public String sendPostRequest(String jsonString) {
-        CoapResponse resp = client.post(jsonString, MediaTypeRegistry.APPLICATION_JSON);
-        if(!resp.isSuccess())
-            return null;
-        return resp.getResponseText();
-    }
-
-    public String sendPutRequest(String param) {
+    public void sendPutRequest(String param) {
         Request req = new Request(CoAP.Code.PUT);
         req.getOptions().setAccept(MediaTypeRegistry.APPLICATION_JSON);
         req.getOptions().addUriQuery(param);
         CoapResponse resp = client.advanced(req);
-        if(!resp.isSuccess())
-            return null;
-        return resp.getResponseText();
+        return;
     }
 }

@@ -71,8 +71,12 @@ public class DevicesResource extends CoapResource {
             } else if (type.equals("actuator")) {
                 device = new Actuator(deviceAddress, room, type, metric, deviceId);
             }
-            RegisteredDevices.insert(device);
-            System.out.println("A new " + device + " has just been inserted!");
+            if(RegisteredDevices.query(null, room, type, metric, deviceId).size()!=0){
+                System.out.println("A " + device + " already exists in the network");
+            }else {
+                RegisteredDevices.insert(device);
+                System.out.println("A new " + device + " has just been inserted!");
+            }
             RegisteredDevices.print();
             exchange.respond(CoAP.ResponseCode.CREATED);
         } catch (Exception e) {
