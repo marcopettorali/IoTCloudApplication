@@ -7,6 +7,8 @@
     <link rel="icon" href="./assets/logo/logo_small_icon_only_no_background.png">
     <link rel="stylesheet" href="css/navigationBar.css">
     <link rel="stylesheet" href="css/logo.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/home.css">
     <title>Aquarium Control Panel</title>
 </head>
 <body>
