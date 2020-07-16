@@ -23,19 +23,19 @@ public class Actuator extends Device {
     }
 
     public void setLowThreshold(double value) {
-        resource.sendPutRequest("t_l=" + value);
+        resource.sendPutRequest("T_L=" + value);
     }
 
     public void setHighThreshold(double value) {
-        resource.sendPutRequest("t_h=" + value);
+        resource.sendPutRequest("T_H=" + value);
     }
 
     public void setLowThresholdWithMetric(double value, String metric) {
-        resource.sendPutRequest("t_l_" + metric + "=" + value);
+        resource.sendPutRequest("T_L_" + metric.toUpperCase() + "=" + value);
     }
 
     public void setHighThresholdWithMetric(double value, String metric) {
-        resource.sendPutRequest("t_h_" + metric + "=" + value);
+        resource.sendPutRequest("T_H_" + metric.toUpperCase() + "=" + value);
     }
 
     public List<Double> getDataSince(long date) {
