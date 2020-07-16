@@ -6,7 +6,6 @@ import org.eclipse.californium.core.CoapServer;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.net.InetAddress;
-import java.net.InetAddress;
 
 
 public class CoapLauncher implements ServletContextListener {
