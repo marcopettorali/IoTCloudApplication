@@ -72,6 +72,10 @@ public class DoubleObserver {
         return ret;
     }
 
+    public void setState(String state){
+        this.state = state;
+    }
+
     public String getState(){
         return state;
     }

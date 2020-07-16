@@ -25,4 +25,9 @@ public class Sensor extends Device {
     public String getState() {
         return observer.getState();
     }
+
+    public void resetObserver(){
+        String observedResourceAddress = "coap://[" + getAddress().getHostAddress() + "]/" + getMetric();
+        this.observer = new DoubleObserver(observedResourceAddress, 256, observedResourceAddress);
+    }
 }
