@@ -61,7 +61,12 @@
                                 <c:out value="${sensor.currentValue}"/>
                             </p>
                             <p>Status: <c:out value="${sensor.status}"/></p>
-                            <button type="button">Plot</button>
+                            <label>
+                                Here you can set resource sampling period in seconds (default 60s)
+                                <input type="text" name="sample" placeholder="sampling period (s)">
+                                <button <c:out value="id=${sensor.sampleButtonID}"/>>SET</button>
+                            </label>
+                            <button <c:out value="id=${sensor.plotButtonID}" /> type="button">Plot</button>
                         </div>
                         <div <c:out value="id=${sensor.identifier}"/> hidden>
                         </div>
@@ -112,7 +117,12 @@
                             <h4>Thermometer</h4>
                             <p>Temperature: <c:out value="${sensor.currentValue}"/>°C</p>
                             <p>Status: <c:out value="${sensor.status}"/></p>
-                            <button type="button">Plot</button>
+                            <label>
+                                Here you can set resource sampling period in seconds (default 60s)
+                                <input type="text" name="sample" placeholder="sampling period (s)">
+                                <button <c:out value="id=${sensor.sampleButtonID}"/>>SET</button>
+                            </label>
+                            <button <c:out value="id=${sensor.plotButtonID}" /> type="button">Plot</button>
                         </div>
                         <div <c:out value="id=${sensor.identifier}"/> hidden>
                         </div>
@@ -165,7 +175,12 @@
                             <h4>Light intensity</h4>
                             <p>Light strength: <c:out value="${sensor.currentValue}"/> lux</p>
                             <p>Status: <c:out value="${sensor.status}"/></p>
-                            <button type="button">Plot</button>
+                            <label>
+                                Here you can set resource sampling period in seconds (default 60s)
+                                <input type="text" name="sample" placeholder="sampling period (s)">
+                                <button <c:out value="id=${sensor.sampleButtonID}"/>>SET</button>
+                            </label>
+                            <button <c:out value="id=${sensor.plotButtonID}" /> type="button">Plot</button>
                         </div>
                         <div <c:out value="id=${sensor.identifier}"/> hidden>
                         </div>
@@ -222,7 +237,12 @@
                                         <p>NH4+/NH3: <c:out value="${linked.currentValue} mg/L"/></p>
                                         <p>Ph sensor status: <c:out value="${sensor.status}"/></p>
                                         <p>NH4+/NH3 sensor status: <c:out value="${linked.status}"/></p>
-                                        <button type="button">Plot</button>
+                                        <label>
+                                            Here you can set PH and NH3 sampling period in seconds (default 60s)
+                                            <input type="text" name="sample" placeholder="sampling period (s)">
+                                            <button <c:out value="id=${sensor.sampleButtonID}"/>>SET</button>
+                                        </label>
+                                        <button <c:out value="id=${sensor.plotButtonID}" /> type="button">Plot</button>
                                     </c:when>
                                     <c:otherwise>
                                         <h4>Acidity and Ammonium</h4>
@@ -230,7 +250,12 @@
                                         <p>NH4+/NH3: <c:out value="${sensor.currentValue} mg/L"/></p>
                                         <p>Ph sensor status: <c:out value="${linked.status}"/></p>
                                         <p>NH4+/NH3 sensor status: <c:out value="${sensor.status}"/></p>
-                                        <button type="button">Plot</button>
+                                        <label>
+                                            Here you can set PH and NH3 sampling period in seconds (default 60s)
+                                            <input type="text" name="sample" placeholder="sampling period (s)">
+                                            <button <c:out value="id=${sensor.sampleButtonID}"/>>SET</button>
+                                        </label>
+                                        <button <c:out value="id=${sensor.plotButtonID}" /> type="button">Plot</button>
                                     </c:otherwise>
                                 </c:choose>
                             </div>
