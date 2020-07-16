@@ -82,10 +82,10 @@
                                     <c:choose>
                                         <c:when test="${tempAct.currentValue eq 0}">
                                             <%-- OFF --%>
-                                            <input <c:out value="id=${tempAct.toggleID}"/> type="checkbox" class="O2Off">
+                                            <input <c:out value="id=${tempAct.toggleID}"/> type="checkbox" class="toggle">
                                         </c:when>
                                         <c:otherwise> <%-- ON --%>
-                                            <input <c:out value="id=${tempAct.toggleID}"/> class="O2On" type="checkbox" checked>
+                                            <input <c:out value="id=${tempAct.toggleID}"/> class="toggle" type="checkbox" checked>
                                         </c:otherwise>
                                     </c:choose>
                                     </label>
@@ -141,10 +141,10 @@
                                     <label> Toggle:
                                         <c:choose>
                                             <c:when test="${tempAct.currentValue eq 0}"> <%-- OFF --%>
-                                                <input <c:out value="id=${tempAct.toggleID}"/> type="checkbox" class="ThermoOff">
+                                                <input <c:out value="id=${tempAct.toggleID}"/> type="checkbox" class="toggle">
                                             </c:when>
                                             <c:otherwise> <%-- ON --%>
-                                                <input <c:out value="id=${tempAct.toggleID}"/> class="ThermoOn" type="checkbox" checked>
+                                                <input <c:out value="id=${tempAct.toggleID}"/> class="toggle" type="checkbox" checked>
                                             </c:otherwise>
                                         </c:choose>
                                     </label>
@@ -195,10 +195,10 @@
                                     <label> Toggle:
                                         <c:choose>
                                             <c:when test="${tempAct.currentValue eq 0}"> <%-- OFF --%>
-                                                <input <c:out value="id=${tempAct.toggleID}"/> type="checkbox" class="lightOff">
+                                                <input <c:out value="id=${tempAct.toggleID}"/> type="checkbox" class="toggle">
                                             </c:when>
                                             <c:otherwise> <%-- ON --%>
-                                                <input <c:out value="id=${tempAct.toggleID}"/> class="lightOn" type="checkbox" checked>
+                                                <input <c:out value="id=${tempAct.toggleID}"/> class="toggle" type="checkbox" checked>
                                             </c:otherwise>
                                         </c:choose>
                                     </label>
@@ -272,10 +272,10 @@
                                         <label> Toggle:
                                             <c:choose>
                                                 <c:when test="${tempAct.currentValue eq 0}"> <%-- OFF --%>
-                                                    <input <c:out value="id=${tempAct.toggleID}"/> type="checkbox" class="valveOff">
+                                                    <input <c:out value="id=${tempAct.toggleID}"/> type="checkbox" class="toggle">
                                                 </c:when>
                                                 <c:otherwise> <%-- ON --%>
-                                                    <input <c:out value="id=${tempAct.toggleID}"/> class="valveOn" type="checkbox" checked>
+                                                    <input <c:out value="id=${tempAct.toggleID}"/> class="toggle" type="checkbox" checked>
                                                 </c:otherwise>
                                             </c:choose>
                                         </label>
