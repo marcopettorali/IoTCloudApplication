@@ -4,7 +4,6 @@ import com.aquarium.lln_interface.Actuator;
 import com.aquarium.lln_interface.Device;
 import org.json.simple.JSONObject;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -51,7 +50,6 @@ public class ThresholdServlet extends HttpServlet{
         }
 
         Actuator act = (Actuator) dev;
-        String response = null;
 
         if(act.getMetric().equals("water")) {
 
@@ -63,27 +61,22 @@ public class ThresholdServlet extends HttpServlet{
             }
 
             if(threshold.equals("high")) {
-                response = act.setHighThresholdWithMetric(value, metric);
+                act.setHighThresholdWithMetric(value, metric);
             }
             else {
-                response = act.setLowThresholdWithMetric(value, metric);
+                act.setLowThresholdWithMetric(value, metric);
             }
 
         }
 
         else {
             if (threshold.equals("high")) {
-                response = act.setHighThreshold(value);
+                act.setHighThreshold(value);
             } else {
-                response = act.setLowThreshold(value);
+                act.setLowThreshold(value);
             }
         }
 
-        if(response == null) {
-            System.out.println("Could not contact actuator");
-            resp.sendError(resp.SC_INTERNAL_SERVER_ERROR);
-            return;
-        }
 
         HashMap<String, String> outParams = new HashMap<>();
         outParams.put("id", actuatorID);

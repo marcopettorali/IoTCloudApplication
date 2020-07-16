@@ -47,17 +47,11 @@ public class ActuatorServlet extends HttpServlet{
 
         com.aquarium.lln_interface.Actuator actuator = (Actuator) dev;
 
-        String response;
         if(val == 1) {
-            response = actuator.turnOn();
+            actuator.turnOn();
         }
         else {
-            response = actuator.turnOff();
-        }
-        if(response == null) {
-            System.err.println("Could not receive response from the device");
-            resp.sendError(resp.SC_INTERNAL_SERVER_ERROR);
-            return;
+            actuator.turnOff();
         }
 
         String outcome = val == 1 ? "ON" : "OFF";
