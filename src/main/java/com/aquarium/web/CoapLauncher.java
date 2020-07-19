@@ -27,9 +27,6 @@ public class CoapLauncher implements ServletContextListener {
         System.out.println("Launching Coap Server...");
         CoapServer server = new CoapServer();
         server.add(new DevicesResource());
-        //server.add(new CoAPResourceExample("hello"));
-        //server.add(new ObservableResource("obs"));
-        //populateFakeDevices();
         coapServer = server;
         System.out.println("Rooms available: " + RegisteredDevices.countRooms());
         server.start();

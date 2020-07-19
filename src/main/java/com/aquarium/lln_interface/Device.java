@@ -3,11 +3,11 @@ package com.aquarium.lln_interface;
 import java.net.*;
 
 public class Device {
-    private InetAddress address;
-    private int room;
-    private String type;
-    private String metric;
-    private int deviceId;
+    private final InetAddress address;
+    private final int room;
+    private final String type;
+    private final String metric;
+    private final int deviceId;
 
     public Device(InetAddress address, int room, String type, String metric, Integer deviceId) {
         this.address = address;

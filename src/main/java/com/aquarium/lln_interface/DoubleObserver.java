@@ -7,13 +7,13 @@ import java.util.*;
 
 public class DoubleObserver {
 
-    private DataHistory<Double> dataHistory;
-    private String tag;
+    private final DataHistory<Double> dataHistory;
+    private final String tag;
     private String state = "WORKING";
 
     public DoubleObserver(String address, int historySize, String tag) {
         this.tag = tag;
-        dataHistory = new DataHistory(historySize);
+        dataHistory = new DataHistory<>(historySize);
         ObservingThread thread = new ObservingThread(address);
         thread.setDaemon(true);
         thread.start();

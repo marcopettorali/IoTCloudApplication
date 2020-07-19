@@ -29,7 +29,7 @@ public class DevicesResource extends CoapResource {
         if (roomStr != null) {
             room = Integer.parseInt(roomStr);
         }
-        if (deviceId != null) {
+        if (deviceIdStr != null) {
             deviceId = Integer.parseInt(deviceIdStr);
         }
         List<Device> devices = RegisteredDevices.query(address, room, type, metric, deviceId);
@@ -59,7 +59,7 @@ public class DevicesResource extends CoapResource {
             String type = (String) jsonObject.get("t");
             String metric = (String) jsonObject.get("m");
             int deviceId;
-            Object deviceIdStr = (Object) jsonObject.get("n");
+            Object deviceIdStr = jsonObject.get("n");
             if (deviceIdStr == null) {
                 deviceId = -1;
             } else {
@@ -105,7 +105,7 @@ public class DevicesResource extends CoapResource {
             String type = (String) jsonObject.get("t");
             String metric = (String) jsonObject.get("m");
             int deviceId;
-            Object deviceIdStr = (Object) jsonObject.get("n");
+            Object deviceIdStr = jsonObject.get("n");
             if (deviceIdStr == null) {
                 deviceId = -1;
             } else {
